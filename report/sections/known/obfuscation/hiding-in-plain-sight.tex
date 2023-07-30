@@ -1,0 +1,33 @@
+\section{Hiding In Plain Sight}
+
+\subsection{Evades}
+
+Here, the goal is to overwhelm source code reviewers with the sheer volume of code.
+
+It also lowers the efficiency of ML algorithms.
+
+\subsection{How}
+
+By stacking dependencies, the scammer grows the volume of the source code to thousands of lines.
+
+99\% of the code is classic, legitimate implementation of standards.
+
+And the remaining percent is malicious code, hidden inside one of the numerous dependencies for example.
+
+\subsection{Samples}
+
+Hidden among 7k+ lines of code:
+
+\begin{highlight}\begin{lstlisting}
+// no authorization modifier `onlyOwner`
+function transferOwnership(address newOwner) public virtual {
+    if (newOwner == address(0)) {
+        revert OwnableInvalidOwner(address(0));
+    }
+    _transferOwnership(newOwner);
+}
+\end{lstlisting}\end{highlight}
+
+\subsection{Detection \& Countermeasures}
+
+1. The proportion of unused code can be leveraged from the transaction history.

@@ -47,3 +47,10 @@ The goal is to build a labeled dataset of malicious code.
   - injections (infecting common files)
 - report a hack / scam:
   - https://www.chainabuse.com/report
+- how does detection impact scammers?
+  - (morphing / lateral mvt necessary?)
+- alternative taxonomy:
+  - evading users (faking contracts)
+  - evading reviewers (code volume, subtle exploits etc)
+  - evaing tests (tx simulation)
+  - evading tools (etherscan code review, forta, etc)

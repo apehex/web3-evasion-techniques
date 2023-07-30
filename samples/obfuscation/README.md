@@ -40,7 +40,7 @@ function transferOwnership(address newOwner) public virtual {
 
 - [Masquerading Code In Etherscan][video-masquerading-code]
 
-## Stowaway Storage
+## Hidden State
 
 ### Evades
 

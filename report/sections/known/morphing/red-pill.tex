@@ -1,0 +1,51 @@
+\section{Red-Pill}
+
+The red-pill technique detects simulation environment to disable its exploits upon scrutiny. 
+
+\subsection{Evades}
+
+Live tests in transaction simulations: often performed by wallets before sending a transaction.
+
+\subsection{How}
+
+The contract detects simulation environments by:
+
+\begin{itemize}
+\item{comparing the global variables with settings found in simulated environments:
+\begin{itemize}
+    \item{\emph{block.basefee} with}
+    \item{\emph{block.coinbase} with \emph{0x0000000000000000000000000000000000000000}}
+    \item{\emph{tx.gasprice} with}
+\end{itemize}}
+\end{itemize}
+
+Then it triggers legitimate code in simulation contexts and malicious code on the mainnet.
+
+\subsection{Samples}
+
+The contract [FakeWethGiveaway](red-pill/FakeWethGiveaway.sol) checks the current block miner’s address:
+
+\begin{highlight}
+\begin{lstlisting}[language=Solidity]
+function checkCoinbase() private view returns (bool result) {
+    assembly {
+        result := eq(coinbase(), 0x0000000000000000000000000000000000000000)
+    }
+}
+\end{lstlisting}
+\end{highlight}
+
+When null (test env), it actually sends a reward and otherwise it just accepts transfers without doing anything.s
+
+\subsection{Detection \& Countermeasures}
+
+\begin{itemize}
+\item{Looking for unusual opcodes: typically `block.coinbase`.}
+\item{Replaying transactions and fuzzing the global variables.}
+\end{itemize}
+
+\subsection{Resources}
+
+\begin{itemize}
+\item{\cite{article-red-pill}}
+\end{itemize}

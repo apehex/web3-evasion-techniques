@@ -104,4 +104,4 @@ Etherscan will show some irrelevant contract, giving the impression it is legit.
 
 [article-honeypots]: https://arxiv.org/pdf/1902.06976.pdf
 [changelog-solidity-bugs]: https://github.com/ethereum/solidity/blob/develop/docs/bugs.json
-[video-masquerading-code]: https://www.video.com/watch?v=l1wjRy2BYPg
+[video-masquerading-code]: https://www.youtube.com/watch?v=l1wjRy2BYPg

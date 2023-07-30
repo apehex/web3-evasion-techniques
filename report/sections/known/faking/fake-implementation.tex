@@ -1,0 +1,39 @@
+\section{Fake Standard Implementation}
+
+\subsection{Evades}
+
+Etherscan's interpretation of proxy is fixed, it can easily be fooled.
+
+\subsection{How}
+
+Contrary to the previous methods, this one doesn't use valid code from the standards.
+
+It keeps the name / structure, but the code is actually different.
+
+\subsection{Samples}
+
+Here's a fake EIP-1657 proxy implementation:
+
+\begin{highlight}
+\begin{lstlisting}[language=Solidity]
+function _getImplementation() internal view returns (address) {
+    return
+        StorageSlot
+            .getAddressSlot(bytes32(uint256(keccak256("eip1967.fake")) - 1)).
+            .value;
+}
+\end{lstlisting}
+\end{highlight}
+
+It doesn't use the standard slot for the implementation address:
+Etherscan will show some irrelevant contract, giving the impression it is legit.
+
+\subsection{Detection \& Countermeasures}
+
+The bytecode selectors and implementation can be checked against reference implementations.
+
+\subsection{Resources}
+
+\begin{itemize}
+\item{\cite{video-masquerading-code}}
+\end{itemize}

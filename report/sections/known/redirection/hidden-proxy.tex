@@ -1,0 +1,27 @@
+\section{Hidden Proxy}
+
+\subsection{Evades}
+
+This technique allows scammers to verify their contracts will dodging source code reviews.
+
+\subsection{How}
+
+The contract performs \emph{delegateCalls} on any unknown selector.
+
+The target address can be hardcoded, making it 
+
+In the end, the exposed functionalities are not meaningful, the logic is located at a seemingly unrelated address.
+
+\subsection{Samples}
+
+\begin{highlight}
+\begin{lstlisting}
+fallback () external {
+	if (msg.sender == owner()) {
+		(bool success, bytes memory data) = address(0x25B072502FB398eb4f428D60D01f18e8Ffa01448).delegateCall(
+			msg.data
+		);
+	}
+}
+\end{lstlisting}
+\end{highlight}

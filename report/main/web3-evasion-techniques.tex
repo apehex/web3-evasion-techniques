@@ -1,0 +1,80 @@
+% =======================================================================================
+%                               PAQUETS ET CONFIGURATION
+% =======================================================================================
+
+\documentclass[11pt,fleqn,oneside]{book} % Default font size and left-justified equations
+
+% =======================================================================================
+
+\input{template/main} % Commands and appearance of the template
+\input{template/context} % Global settings
+
+\addbibresource{bibliography/references.bib} % BibTeX bibliography file
+
+% =======================================================================================
+
+\begin{document}
+
+% =======================================================================================
+%\usechapterimagefalse
+%\cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
+
+% =======================================================================================
+%                                   PREAMBLE
+% =======================================================================================
+\input{roman/cover}
+%----------------------------------------------------------------------------------------
+\chapterimage{images/headers/snowy-belt.jpg}
+\input{roman/table-of-contents}
+%----------------------------------------------------------------------------------------
+
+% =======================================================================================
+%                                   PART 1: KNOWN
+% =======================================================================================
+\part{Known Techniques}
+%----------------------------------------------------------------------------------------
+\chapter{Faking} \label{ch:known-faking}
+\input{sections/known/faking/inheritance-overriding}
+\input{sections/known/faking/fake-implementation}
+%----------------------------------------------------------------------------------------
+\chapter{Morphing} \label{ch:known-morphing}
+\input{sections/known/morphing/red-pill}
+% ---------------------------------------------------------------------------------------
+\chapter{Obfuscation} \label{ch:known-obfuscation}
+\input{sections/known/obfuscation/hiding-in-plain-sight}
+\input{sections/known/obfuscation/hiding-behind-proxies}
+\input{sections/known/obfuscation/hidden-state}
+% ---------------------------------------------------------------------------------------
+\chapter{Poisoning} \label{ch:known-poisoning}
+\input{sections/known/poisoning/event-poisoning}
+% ---------------------------------------------------------------------------------------
+\chapter{Redirection} \label{ch:known-redirection}
+\input{sections/known/redirection/hidden-proxy}
+\input{sections/known/redirection/selector-collisions}
+
+% =======================================================================================
+%                                   PART 2: FORESEEN
+% =======================================================================================
+\part{Foreseen Techniques}
+%----------------------------------------------------------------------------------------
+\chapter{Obfuscation} \label{ch:foreseen-obfuscation}
+\input{sections/foreseen/obfuscation/packing}
+
+% =======================================================================================
+%                                   APPENDICES
+% =======================================================================================
+\renewcommand{\thechapter}{\Alph{chapter}}
+\renewcommand{\thesection}{\Alph{chapter}.\Roman{section}}
+\renewcommand{\thesubsection}{\Alph{chapter}.\Roman{section}.\alph{subsection}}
+%\setcounter{chapter}{0}
+%\setcounter{section}{0}
+%\setcounter{subsection}{0}
+%----------------------------------------------------------------------------------------
+\part{Appendices}
+%----------------------------------------------------------------------------------------
+\chapter{Samples}
+\input{appendices/samples}
+%----------------------------------------------------------------------------------------
+\newpage\printbibliography[title = {Resources}]
+
+\end{document}

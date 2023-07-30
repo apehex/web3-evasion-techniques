@@ -22,7 +22,7 @@ As shown in [the talk by Yoav Weiss at DSS 2023][video-masquerading-code]:
 
 ```solidity
 function IMGURL() public pure returns (bool) {
-	return true;
+    return true;
 }
 ```
 
@@ -46,11 +46,11 @@ In the end, the exposed functionalities are not meaningful, the logic is located
 
 ```solidity
 fallback () external {
-	if (msg.sender == owner()) {
-		(bool success, bytes memory data) = address(0x25B072502FB398eb4f428D60D01f18e8Ffa01448).delegateCall(
-			msg.data
-		);
-	}
+    if (msg.sender == owner()) {
+        (bool success, bytes memory data) = address(0x25B072502FB398eb4f428D60D01f18e8Ffa01448).delegateCall(
+            msg.data
+        );
+    }
 }
 ```
 
