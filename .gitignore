@@ -1,0 +1,10 @@
+# temp files
+*.aux
+*.bcf
+*.idx
+*.log
+*.ptc
+*.toc
+
+# bibliography
+*.bbl

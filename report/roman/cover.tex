@@ -14,62 +14,39 @@
 %%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%
 \fill[ocre] (current page.south west) rectangle (current page.north east);
 
-
 %%%%%%%%%%%%%%%%%%%% Background Polygon %%%%%%%%%%%%%%%%%%%%
 
 % top left
-\foreach \i in {0.5,...,20}
-{
-    \node[rounded corners,ocre!60,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.north west)+(2.5,0)$) {} ;
-}
+\foreach \i in {0.5,...,20} {\drawHexagon{$(current page.north west)+(2.5,0)$}{ocre!60,draw}{\i cm}{0}{};}
 
 % bottom left
-\foreach \i in {2.5,...,22}
-{
-    \node[rounded corners,ocre!60,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.west)+(2.5,-5)$) {} ;
-}
+\foreach \i in {2.5,...,22} {\drawHexagon{$(current page.west)+(2.5,-5)$}{ocre!60,draw}{\i cm}{0}{};}
 
 % center right
-\foreach \i in {0.5,...,22}
-{
-    \node[rounded corners,ocre!90,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.north east)+(0,-9.5)$) {} ;
-}
+\foreach \i in {0.5,...,22} {\drawHexagon{$(current page.north east)+(0,-9.5)$}{ocre!90,draw}{\i cm}{0}{};}
 
 % bottom right
-\foreach \i in {21,...,14}
-{
-    \node[ocre!85,rounded corners,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.south east)+(-0.2,-0.45)$) {} ;
-}
-\node[rounded corners,fill=ocre!70,text=ocre,regular polygon,regular polygon sides=6, minimum size=14cm,inner sep=0,ultra thick] at ($(current page.south east)+(-0.2,-0.45)$) {};
-\node[rounded corners,fill=ocre,text=ocre,regular polygon,regular polygon sides=6, minimum size=10cm,inner sep=0,ultra thick] at ($(current page.south east)+(-0.2,-0.45)$) {};
+\foreach \i in {21,...,14} {\drawHexagon{$(current page.south east)+(-0.2,-0.45)$}{ocre!85,draw}{\i cm}{0}{};}
+\drawHexagon{$(current page.south east)+(-0.2,-0.45)$}{fill=ocre!70,text=ocre}{14cm}{0}{};
+\drawHexagon{$(current page.south east)+(-0.2,-0.45)$}{fill=ocre,text=ocre}{10cm}{0}{};
 \begin{pgfonlayer}{fg}
-\foreach \i in {10,...,4}
-{
-    \node[ocre!85,rounded corners,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.south east)+(-0.2,-0.45)$) {} ;
-}
+\foreach \i in {10,...,4} {\drawHexagon{$(current page.south east)+(-0.2,-0.45)$}{ocre!85,draw}{\i cm}{0}{};}
 \end{pgfonlayer}
 
 
-%%%%%%%%%%%%%%%%%%%% Title of the Report %%%%%%%%%%%%%%%%%%%% 
-\node[left,black,minimum width=0.625*\paperwidth,minimum height=3cm, rounded corners,text=white,rotate=-60] at ($(current page.center)+(4.4,-4.4)$)
-{
-{\Huge \sffamily \bfseries \textsc{\TITLE}}
-};
+%%%%%%%%%%%%%%%%%%%% Title of the Report %%%%%%%%%%%%%%%%%%%%
+\drawText{$(current page.center)+(4.4,-4.4)$}{text=white}{3cm}{-60}{\Huge \textsc{\TITLE}};
 
-%%%%%%%%%%%%%%%%%%%% Subtitle %%%%%%%%%%%%%%%%%%%% 
-\node[left,black,minimum width=0.625*\paperwidth,minimum height=2cm, rounded corners,text=white,rotate=-60] at ($(current page.center)+(4,-6)$)
-{
-{\Large \sffamily \textsc{\SUBTITLE}}
-};
+%%%%%%%%%%%%%%%%%%%% Subtitle %%%%%%%%%%%%%%%%%%%%
+\drawText{$(current page.center)+(4,-6)$}{text=white}{2cm}{-60}{\Large \textsc{\SUBTITLE}};
 
-%%%%%%%%%%%%%%%%%%%% Author Name %%%%%%%%%%%%%%%%%%%% 
-\node[left,align=right,black,minimum width=0.625*\paperwidth,minimum height=2cm, rounded corners,text=ocre,rotate=60] at ($(current page.center)+(9,-7)$)
-{
-{\Large \sffamily\bfseries \textsc{\AUTHOR}}\\[0.4cm]
-{\Large \sffamily\bfseries \textsc{\DATE}}
-};
+%%%%%%%%%%%%%%%%%%%% Author Name %%%%%%%%%%%%%%%%%%%%
+\begin{pgfonlayer}{fg}
+\drawText{$(current page.south east)+(5.4,4.6)$}{text=ocre}{2cm}{0}{\Large \textsc{\AUTHOR}};
+\drawText{$(current page.center)+(9,-7.5)$}{text=ocre}{2cm}{60}{\Large  \textsc{\DATE}};
+\end{pgfonlayer}
 
-%%%%%%%%%%%%%%%%%%%% Year %%%%%%%%%%%%%%%%%%%% 
-\node[rounded corners,fill=ocre!70,text=ocre,regular polygon,regular polygon sides=6, minimum size=2.5cm,inner sep=0,ultra thick] at ($(current page.west)+(2.5,-5)$) {\LARGE \sffamily\bfseries \YEAR};
+%%%%%%%%%%%%%%%%%%%% Year %%%%%%%%%%%%%%%%%%%%
+\drawHexagon{$(current page.west)+(2.5,-5)$}{fill=ocre!70,text=ocre}{2.5 cm}{0}{\Large \YEAR};
 
 \end{tikzpicture}
