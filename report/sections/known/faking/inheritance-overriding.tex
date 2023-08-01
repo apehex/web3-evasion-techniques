@@ -25,7 +25,6 @@ The resulting contract doesn't behave like its parent, while looking legitimate.
 
 \emph{KingOfTheHill} inherits from \emph{Ownable} but the original \emph{owner} cannot be changed:
 
-\begin{highlight}
 \begin{lstlisting}[language=Solidity]
 contract KingOfTheHill is Ownable {
     address public owner; // different from the owner in Ownable
@@ -40,7 +39,6 @@ contract KingOfTheHill is Ownable {
     }
 }
 \end{lstlisting}
-\end{highlight}
 
 In the modifier on \emph{takeAll}, the \emph{owner} points to the contract creator.
 It is at storage slot 1, while the fallback function overwrites the storage slot 2.
@@ -49,11 +47,9 @@ In short, sending funds to this contract will never make you the actual owner.
 
 \subsubsection{Method Overwriting}
 
-\begin{highlight}
 \begin{lstlisting}
 
 \end{lstlisting}
-\end{highlight}
 
 \subsection{Detection \& Countermeasures}
 

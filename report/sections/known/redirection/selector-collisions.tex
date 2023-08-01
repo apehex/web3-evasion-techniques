@@ -16,12 +16,10 @@ This can be used to override key elements of the implementation.
 
 As shown in [the talk by Yoav Weiss at DSS 2023][video-masquerading-code]:
 
-\begin{highlight}
 \begin{lstlisting}
 function IMGURL() public pure returns (bool) {
 	return true;
 }
 \end{lstlisting}
-\end{highlight}
 
 This function has the same selector as \emph{keccak("vaultManagers(address)")[0:4]}.

@@ -25,7 +25,6 @@ Then it triggers legitimate code in simulation contexts and malicious code on th
 
 The contract [FakeWethGiveaway](red-pill/FakeWethGiveaway.sol) checks the current block miner’s address:
 
-\begin{highlight}
 \begin{lstlisting}[language=Solidity]
 function checkCoinbase() private view returns (bool result) {
     assembly {
@@ -33,7 +32,6 @@ function checkCoinbase() private view returns (bool result) {
     }
 }
 \end{lstlisting}
-\end{highlight}
 
 When null (test env), it actually sends a reward and otherwise it just accepts transfers without doing anything.s
 
