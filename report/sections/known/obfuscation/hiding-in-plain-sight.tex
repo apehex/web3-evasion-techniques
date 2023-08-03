@@ -18,7 +18,7 @@ And the remaining percent is malicious code, hidden inside one of the numerous d
 
 Hidden among 7k+ lines of code:
 
-\begin{highlight}\begin{lstlisting}
+\begin{lstlisting}
 // no authorization modifier `onlyOwner`
 function transferOwnership(address newOwner) public virtual {
     if (newOwner == address(0)) {
@@ -26,7 +26,7 @@ function transferOwnership(address newOwner) public virtual {
     }
     _transferOwnership(newOwner);
 }
-\end{lstlisting}\end{highlight}
+\end{lstlisting}
 
 \subsection{Detection \& Countermeasures}
 
