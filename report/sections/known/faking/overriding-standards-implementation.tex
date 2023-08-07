@@ -1,0 +1,69 @@
+\section{Overriding Standards Implementation}
+
+\subsection{Technical Details}
+
+Like the previous technique \ref{sec:fake-implementation}, the goal is to have a malicious contract confused with legitimate code.
+
+It is achieved by inheriting from standardized code like \lstinline{Ownable}, \lstinline{Upgradeable}, etc.
+Then, the child class overwrites key elements with:
+
+\begin{description}
+\item[redefinition]{an existing keyword is defined a second time for the references in the child class only}
+\item[polymorphism]{an existing method can be redined with a slightly different signature}
+\end{description}
+
+From the perspective of the source code, a single keyword like \lstinline{owner} can refer to different storage slot depending on its context.
+It is only in the bytecode that a clear difference is made.
+
+\subsection{Evasion Targets}
+
+This technique is refinment of the previous one: it will work on more targets.
+
+\begin{description}
+\item[Etherscan]{blockchain explorers lack  even more flexibility to detect these exploits}
+\item[Users]{the source code is even closer to a legitimate contract}
+\item[Reviewers]{the interpretation of the source code is subtle, and reviewing the bytecode is very time consuming}
+\end{description}
+
+\subsection{Samples}
+
+\subsubsection{Attribute Overwriting}
+
+In section \emph{3.2.2}, the paper \cite{paper-art-of-the-scam} shows an example of inheritance overriding with \lstinline{KingOfTheHill} :
+
+\begin{lstlisting}[language=Solidity]
+contract KingOfTheHill is Ownable {
+    address public owner; // different from the owner in Ownable
+
+    function () public payable {
+        if(msg.value > jackpot) owner = msg.sender; // local owner
+        jackpot += msg.value;
+    }
+    function takeAll () public onlyOwner { // contract creator
+        msg.sender.transfer(this.balance);
+        jackpot = 0;
+    }
+}
+\end{lstlisting}
+
+In the modifier on \lstinline{takeAll}, the \lstinline{owner} points to the contract creator.
+It is at storage slot 1, while the fallback function overwrites the storage slot 2.
+
+In short, sending funds to this contract will never make you the actual owner.
+
+\subsubsection{Method Overwriting}
+
+\begin{lstlisting}[language=Solidity]
+
+\end{lstlisting}
+
+\subsection{Detection \& Countermeasures}
+
+While subtle for the human reader, it is rather easy to detect when expected:
+
+\begin{description}
+\item[source code]{the sources can be checked for duplicate definitions \& polymorphism}
+\item[bytecode]{}
+\end{description}
+
+Since the whole point is to advertize for a functionality with the sources, they will be available.
