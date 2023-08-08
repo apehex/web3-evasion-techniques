@@ -1,0 +1,22 @@
+## TODO
+
+- requires to fetch contract bytecode: slower agent?
+- online fuzzing & symbolic parsing?
+- bot context:
+  - how to request source code?
+  - how to fetch transaction history?
+- implement indicators as a lib?
+  - when the input data (contract source code) is not accessible for the bot?
+- YARA style reference implementations / signatures?
+- from Web2:
+  - living off the land (memory / network)
+  - injections (infecting common files)
+- report a hack / scam:
+  - https://www.chainabuse.com/report
+- how does detection impact scammers?
+  - (morphing / lateral mvt necessary?)
+- alternative taxonomy:
+  - evading users (faking contracts)
+  - evading reviewers (code volume, subtle exploits etc)
+  - evaing tests (tx simulation)
+  - evading tools (etherscan code review, forta, etc)
