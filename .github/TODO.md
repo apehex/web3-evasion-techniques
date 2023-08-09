@@ -20,3 +20,6 @@
   - evading reviewers (code volume, subtle exploits etc)
   - evaing tests (tx simulation)
   - evading tools (etherscan code review, forta, etc)
+- tx simulation:
+  - `block.basefee`
+  - `tx.gasprice`

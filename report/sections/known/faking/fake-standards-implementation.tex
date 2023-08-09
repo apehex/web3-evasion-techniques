@@ -49,7 +49,7 @@ Etherscan will show some irrelevant contract, giving the impression it is legit.
 Several sources can be monitored:
 
 \begin{description}
-\item[Storage]{comparing the target of \lstinline{delegateCall} to the address in the storage slots of the standards}
-\item[Events]{changes to the address of the logic contract should come with an \lstinline{Upgraded} event}
+\item[Storage]{comparing the target of \lstinline[language=Solidity]{delegateCall} to the address in the storage slots of the standards}
+\item[Events]{changes to the address of the logic contract should come with an \lstinline[language=Solidity]{Upgraded} event}
 \item[Bytecode]{the implementation of known selectors can be checked agains the standard's reference bytecode}
 \end{description}

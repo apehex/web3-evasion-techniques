@@ -1,18 +1,20 @@
-\section{Hiding In Plain Sight}
+\section{Hiding In Plain Sight} \label{sec:hiding-in-plain-sight}
 
-\subsection{Evades}
-
-Here, the goal is to overwhelm source code reviewers with the sheer volume of code.
-
-It also lowers the efficiency of ML algorithms.
-
-\subsection{How}
+\subsection{Technical Details}
 
 By stacking dependencies, the scammer grows the volume of the source code to thousands of lines.
 
 99\% of the code is classic, legitimate implementation of standards.
 
-And the remaining percent is malicious code, hidden inside one of the numerous dependencies for example.
+And the remaining percent is malicious code: it can be in the child class or hidden inside one of the numerous dependencies.
+
+\subsection{Evasion Targets}
+
+\begin{description}
+\item[users]{wallets often perform a simulation of the transaction before committing}
+\item[reviewers]{the goal is to overwhelm source code reviewers with the sheer volume of code}
+\item[tools]{unrelated data also lowers the efficiency of ML algorithms}
+\end{description}
 
 \subsection{Samples}
 
@@ -30,4 +32,7 @@ function transferOwnership(address newOwner) public virtual {
 
 \subsection{Detection \& Countermeasures}
 
-1. The proportion of unused code can be leveraged from the transaction history.
+\begin{description}
+\item[bytecode]{the size of the bytecode is a low signal}
+\item[tracing]{the proportion of the code actually used can be computed by replaying transactions}
+\end{description}

@@ -1,29 +1,34 @@
 \section{Red-Pill} \label{sec:red-pill}
 
+\subsection{Technical Details}
+
 The red-pill technique detects simulation environment to disable its exploits upon scrutiny. 
 
-\subsection{Evades}
+The contract detects simulation environments by checking:
 
-Live tests in transaction simulations: often performed by wallets before sending a transaction.
-
-\subsection{How}
-
-The contract detects simulation environments by:
-
+\begin{description}
+\item[globals]{the global variables have special values in test environments:
 \begin{itemize}
-\item{comparing the global variables with settings found in simulated environments:
-\begin{itemize}
-    \item{\emph{block.basefee} with}
-    \item{\emph{block.coinbase} with \emph{0x0000000000000000000000000000000000000000}}
-    \item{\emph{tx.gasprice} with}
+    \item{\lstinline[language=Solidity]{block.basefee}:}
+    \item{\lstinline[language=Solidity]{block.coinbase}: \lstinline{0x0000000000000000000000000000000000000000}}
+    \item{\lstinline[language=Solidity]{tx.gasprice}:}
 \end{itemize}}
-\end{itemize}
+\end{description}
 
 Then it triggers legitimate code in simulation contexts and malicious code on the mainnet.
 
+\subsection{Evasion Targets}
+
+\begin{description}
+\item[tests]{wallets often perform a simulation of the transaction before committing}
+\item[tools]{automatic tools may not go further than basic dynamic analysis}
+\end{description}
+
+On the other hand it is rather obvious when reviewing the code.
+
 \subsection{Samples}
 
-The contract [FakeWethGiveaway](red-pill/FakeWethGiveaway.sol) checks the current block miner’s address:
+The contract \lstinline{FakeWethGiveaway} mentioned in \cite{article-red-pill} checks the current block miner’s address:
 
 \begin{lstlisting}[language=Solidity]
 function checkCoinbase() private view returns (bool result) {
@@ -33,17 +38,20 @@ function checkCoinbase() private view returns (bool result) {
 }
 \end{lstlisting}
 
-When null (test env), it actually sends a reward and otherwise it just accepts transfers without doing anything.s
+When null (test env), it actually sends a reward:
+
+\begin{lstlisting}[language=Solidity]
+bool shouldDoTransfer = checkCoinbase();
+if (shouldDoTransfer) {
+    IWETH(weth).transfer(msg.sender, IWETH(weth).balanceOf(address(this)));
+}
+\end{lstlisting}
+
+Otherwise, on the mainnet, it just accepts transfers without doing anything.
 
 \subsection{Detection \& Countermeasures}
 
-\begin{itemize}
-\item{Looking for unusual opcodes: typically `block.coinbase`.}
-\item{Replaying transactions and fuzzing the global variables.}
-\end{itemize}
-
-\subsection{Resources}
-
-\begin{itemize}
-\item{\cite{article-red-pill}}
-\end{itemize}
+\begin{description}
+\item[opcodes]{looking for unusual opcodes: typically \lstinline[language=Solidity]{block.coinbase}}
+\item[fuzzing]{the transactions can be tested with blank data and compared with results behavior on data}
+\end{description}

@@ -17,7 +17,7 @@ It is only in the bytecode that a clear difference is made.
 
 \subsection{Evasion Targets}
 
-This technique is refinment of the previous one: it will work on more targets.
+This technique is a refinment of the previous one: it will work on more targets.
 
 \begin{description}
 \item[Etherscan]{blockchain explorers lack  even more flexibility to detect these exploits}
@@ -57,9 +57,10 @@ In short, sending funds to this contract will never make you the actual owner.
 
 \end{lstlisting}
 
+\newpage
 \subsection{Detection \& Countermeasures}
 
-While subtle for the human reader, it is rather easy to detect when expected:
+While subtle for the human reader, tools can rather easily detect it in:
 
 \begin{description}
 \item[source code]{the sources can be checked for duplicate definitions \& polymorphism}
