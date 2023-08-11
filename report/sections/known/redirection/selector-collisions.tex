@@ -1,10 +1,6 @@
-\section{Selector Collisions}
+\section{Selector Collisions} \label{sec:selector-collisions}
 
-\subsection{Evades}
-
-This subtle 
-
-\subsection{How}
+\subsection{Technical Details}
 
 Because the function selectors are only 4 bytes long, it is easy to find collisions.
 
@@ -12,14 +8,45 @@ When a selector in the proxy contract collides with another on the implementatio
 
 This can be used to override key elements of the implementation.
 
+\subsection{Evasion Targets}
+
+\begin{description}
+\item[tools]{this subtle exploit evades most static analysis}
+\item[reviewers]{the sources don't show the flow from legitimate function to its malicious collision}
+\end{description}
+
 \subsection{Samples}
 
-As shown in [the talk by Yoav Weiss at DSS 2023][video-masquerading-code]:
+As \href{https://www.youtube.com/watch?v=l1wjRy2BYPg}{Yoav Weiss showed at DSS 2023} \cite{video-masquerading-code}, this harmless function:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Solidity]
 function IMGURL() public pure returns (bool) {
-	return true;
+    return true;
 }
 \end{lstlisting}
 
-This function has the same selector as \emph{keccak("vaultManagers(address)")[0:4]}.
+Collides with another function:
+
+\begin{lstlisting}[language=Python]
+Web3.keccak(text='IMGURL()').hex().lower()[:10]
+# '0xbab82c22'
+Web3.keccak(text='vaultManagers(address)').hex().lower()[:10]
+# '0xbab82c22'
+\end{lstlisting}
+
+And this view is used to determine which address is a manager, e.g. it is critical:
+
+\begin{lstlisting}[language=Solidity]
+mapping (address=>bool) public vaultManagers;
+\end{lstlisting}
+
+\subsection{Detection \& Countermeasures}
+
+The collisions can be identified by comparing the bytecodes of proxy and implementation:
+
+\begin{description}
+\item[selectors]{the hub section of the bytecode has the list of selectors}
+\item[debugging]{dynamic analysis will trigger the collision; still it may not have an obviously suspicious behavior}
+\end{description}
+
+The article \href{article-deconstructing-contract}{deconstructing a Solidity contract} \cite{article-deconstructing-contract} has a \href{https://gists.rawgit.com/ajsantander/23c032ec7a722890feed94d93dff574a/raw/a453b28077e9669d5b51f2dc6d93b539a76834b8/BasicToken.svg}{very helpful diagram} \cite{image-deconstruction-diagram}.

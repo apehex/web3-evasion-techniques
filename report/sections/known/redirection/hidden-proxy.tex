@@ -1,20 +1,29 @@
 \section{Hidden Proxy}
 
-\subsection{Evades}
+\subsection{Technical Details}
 
-This technique allows scammers to verify their contracts will dodging source code reviews.
+Here, the contract advertises functionalities through its sources but actually redirects to another contract.
 
-\subsection{How}
+One common way to achieve this is to performs \lstinline{delegateCall} on any unknown selector, via the fallback.
 
-The contract performs \emph{delegateCalls} on any unknown selector.
+The exposed functionalities are not meaningful, the logic is located at a seemingly unrelated \& hidden address.
 
-The target address can be hardcoded, making it 
+The target address can be hardcoded or passed as an argument, making it stealthier.
 
-In the end, the exposed functionalities are not meaningful, the logic is located at a seemingly unrelated address.
+\subsection{Evasion Targets}
+
+This technique stacks another layer of evasion on top those mentioned in \ref{sec:hiding-in-plain-sight}:
+
+\begin{description}
+\item[tools]{testing visible code does not bring out the malicious part}
+\item[reviewers]{the proxy address may not even be in the byte / source code}
+\end{description}
 
 \subsection{Samples}
 
-\begin{lstlisting}
+A malicious fallback can be inserted into an expensive codebase:
+
+\begin{lstlisting}[language=Solidity]
 fallback () external {
 	if (msg.sender == owner()) {
 		(bool success, bytes memory data) = address(0x25B072502FB398eb4f428D60D01f18e8Ffa01448).delegateCall(
@@ -23,3 +32,13 @@ fallback () external {
 	}
 }
 \end{lstlisting}
+
+\subsection{Detection \& Countermeasures}
+
+In addition to the sources \& indicators mentioned in \ref{sec:hiding-in-plain-sight}:
+
+\begin{description}
+\item[history]{the hidden proxy address can be found in the trace logs}
+\item[upgrades]{replaying transactions before / after upgrades may show significant differences}
+\end{description}
+

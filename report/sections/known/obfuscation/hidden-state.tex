@@ -1,18 +1,31 @@
 \section{Hidden State}
 
-\subsection{Evades}
+\subsection{Technical Details}
 
-Totally bypasses source \& bytecode analysis by humans \& tools.
+The storage slots are not explicitely listed: it is easy to stash data without trace.
 
-\subsection{How}
+\begin{description}
+\item[initialization]{the constructor code is not in the available bytecode, it can fill slots without raising any flag}
+\item[delegation]{a delegate contract could also modify the state}
+\end{description}
 
-At the construction / initialization, data can be put in storage at arbitrary slots.
+\subsection{Evasion Targets}
+
+Actually, this method is effective against all the detection agents:
+
+\begin{description}
+\item[everyone]{the data is not visible in the sources nor in the bytecode}
+\end{description}
+
+\subsection{Samples}
+
+The contract can be entirely legitimate, and compromising the storage is enough.
+
+It has been demonstrated by Yoav Weiss \cite{video-masquerading-code} with a \href{https://github.com/safe-global/safe-contracts}{Gnosis Safe}.
+The constructor injected an additional owner into the storage, allowing a hidden address to perform administrative tasks.
 
 \subsection{Detection \& Countermeasures}
 
-Detecting access to:
-
-\begin{itemize}
-\item{arbitray storage locations}
-\item{locations given as input}
-\end{itemize}
+\begin{description}
+\item[]{}
+\end{description}

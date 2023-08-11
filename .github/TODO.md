@@ -23,3 +23,18 @@
 - tx simulation:
   - `block.basefee`
   - `tx.gasprice`
+- a mix of "normal" behaviors can be malicious: it's the mix that matters
+  - normal token + normal proxy in a single contract is suspicious
+  - identify each class of contracts independently
+  - if a contract is seen as 90% token and 90% proxy it is abnormal
+- NORMAL behavior is key:
+  - what is normal FOR a type of contract
+  - sthg normal to a proxy is suspicious on a token
+- smartbugs: which is relevant?
+- level of detail for the detection:
+  - principle?
+  - code snippet
+- too many RPC requests??
+- how to write antivirus?
+  - combine metrics?
+  - language to describe complex combination of indicators?

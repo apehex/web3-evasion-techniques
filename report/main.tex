@@ -53,13 +53,14 @@
 \chapter{Faking} \label{ch:known-faking}
 \input{sections/known/faking/fake-standards-implementation}
 \input{sections/known/faking/overriding-standards-implementation}
+\input{sections/known/faking/bug-exploits}
 %----------------------------------------------------------------------------------------
 \chapter{Morphing} \label{ch:known-morphing}
 \input{sections/known/morphing/red-pill}
 % ---------------------------------------------------------------------------------------
 \chapter{Obfuscation} \label{ch:known-obfuscation}
 \input{sections/known/obfuscation/hiding-in-plain-sight}
-\input{sections/known/obfuscation/hiding-behind-proxies}
+\newpage\input{sections/known/obfuscation/hiding-behind-proxies}
 \input{sections/known/obfuscation/hidden-state}
 % ---------------------------------------------------------------------------------------
 \chapter{Poisoning} \label{ch:known-poisoning}
@@ -78,7 +79,15 @@
 \input{sections/foreseen/obfuscation/packing}
 
 % =======================================================================================
-%                                   PART 3: APPENDICES
+%                                   PART 3: TOOLING
+% =======================================================================================
+\part{Detection Tools}
+%----------------------------------------------------------------------------------------
+\chapter{Static Analysis} \label{ch:static-analysis}
+\chapter{Dynamic Analysis} \label{ch:dynamic-analysis}
+
+% =======================================================================================
+%                                   PART 4: APPENDICES
 % =======================================================================================
 \renewcommand{\thechapter}{\Alph{chapter}}
 \renewcommand{\thesection}{\Alph{chapter}.\Roman{section}}

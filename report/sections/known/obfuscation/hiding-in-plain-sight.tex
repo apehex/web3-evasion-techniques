@@ -8,11 +8,13 @@ By stacking dependencies, the scammer grows the volume of the source code to tho
 
 And the remaining percent is malicious code: it can be in the child class or hidden inside one of the numerous dependencies.
 
+This technique is the most basic: it is often used in combination with other evasion methods.
+
 \subsection{Evasion Targets}
 
 \begin{description}
 \item[users]{wallets often perform a simulation of the transaction before committing}
-\item[reviewers]{the goal is to overwhelm source code reviewers with the sheer volume of code}
+\item[reviewers]{the goal is to overwhelm auditors with the sheer volume of code}
 \item[tools]{unrelated data also lowers the efficiency of ML algorithms}
 \end{description}
 
@@ -20,7 +22,7 @@ And the remaining percent is malicious code: it can be in the child class or hid
 
 Hidden among 7k+ lines of code:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=Solidity]
 // no authorization modifier `onlyOwner`
 function transferOwnership(address newOwner) public virtual {
     if (newOwner == address(0)) {
