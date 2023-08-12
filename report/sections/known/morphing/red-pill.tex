@@ -1,17 +1,17 @@
 \section{Red-Pill} \label{sec:red-pill}
 
-\subsection{Technical Details}
+\subsection{Overview}
 
 The red-pill technique detects simulation environment to disable its exploits upon scrutiny. 
 
 The contract detects simulation environments by checking:
 
 \begin{description}
-\item[globals]{the global variables have special values in test environments:
+\item[globals]{these variables have special values in test environments:
 \begin{itemize}
-    \item{\lstinline[language=Solidity]{block.basefee}:}
+    \item{\lstinline[language=Solidity]{block.basefee}: \lstinline{0}}
     \item{\lstinline[language=Solidity]{block.coinbase}: \lstinline{0x0000000000000000000000000000000000000000}}
-    \item{\lstinline[language=Solidity]{tx.gasprice}:}
+    \item{\lstinline[language=Solidity]{tx.gasprice}: large numbers, higher than \lstinline{0xffffffffffffffff}}
 \end{itemize}}
 \end{description}
 

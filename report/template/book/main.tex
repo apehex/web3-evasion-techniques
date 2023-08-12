@@ -100,6 +100,12 @@
 \usepackage[all]{hypcap} % moves the ref jumping points to the top of images (instead of the caption)
 
 %----------------------------------------------------------------------------------------
+%   CAPTIONS
+%----------------------------------------------------------------------------------------
+
+\usepackage{caption}
+
+%----------------------------------------------------------------------------------------
 %   CODE SNIPPETS
 %----------------------------------------------------------------------------------------
 
@@ -109,7 +115,7 @@
 %   BIBLIOGRAPHY AND INDEX
 %----------------------------------------------------------------------------------------
 
-\usepackage[style=alphabetic,citestyle=numeric,sorting=nyt,sortcites=true,autopunct=true,autolang=other,hyperref=true,abbreviate=false,backref=true,backend=biber]{biblatex}
+\usepackage[style=alphabetic,citestyle=numeric,sorting=nyt,sortcites=true,autopunct=true,autolang=other,hyperref=true,abbreviate=false,backref=true,backend=bibtex]{biblatex}
 
 \usepackage{calc} % For simpler calculation - used for spacing the index letter headings correctly
 \usepackage{makeidx} % Required to make an index
@@ -132,5 +138,6 @@
 \input{template/book/boxes}
 \input{template/book/figures}
 \input{template/book/tables}
+\input{template/book/captions}
 \input{template/book/background}
 \input{template/syntax/solidity}

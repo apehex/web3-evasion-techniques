@@ -1,1 +1,32 @@
-\section{Event Poisoning}
+\section{Event Poisoning} \label{sec:event-poisoning}
+
+\subsection{Overview}
+
+By setting the amount to 0, it is possible to trigger \lstinline[language=Solidity]{Transfer} events from any ERC20 contracts.
+
+In particular, scammers  bait users by coupling two transfers:
+
+\begin{itemize}
+\item{a transfer of 0 amount of a popular token, say USDT}
+\item{a transfer of a small amount of a fake token, with the same name and symbol}
+\end{itemize}
+
+\subsection{Evasion Targets}
+
+\begin{description}
+\item[users]{many users don't double check events coming from well-known tokens}
+\end{description}
+
+\subsection{Samples}
+
+In \href{https://explorer.phalcon.xyz/tx/polygon/0x8a5f75338bfbf78b0969cdf5bacfe24c65e703ea94b430c470193b3d2a094441?line=1}{this batch transaction}, the scammer pretended to send USDC, DAI and USDT to 12 addresses.
+
+The Forta network \href{https://explorer.forta.network/alert/0x51add5ade0777f3fd65efb97ea0055aa6a5329bcfa8266e11c9de28da81896d7}{detected the transfer events of null amount}.
+
+\subsection{Detection \& Countermeasures}
+
+These scams are easily uncovered:
+
+\begin{description}
+\item[logs]{the transactions logs contain the lsit of events, whose amounts can be parsed}
+\end{description}

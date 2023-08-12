@@ -18,18 +18,18 @@ The goal is to build a labeled dataset of malicious code.
 
 - [Report](../report/web3-evasion-techniques.pdf)
 - Samples:
-  - [Faking Techniques](../faking/README.md):
-      - [Inheritance Overriding](../faking/README.md#inheritance-overriding)
-      - [Fake Implementation](../faking/README.md#fake-standard-implementation)
-  - [Morphing Techniques](../morphing/README.md):
-      - [Red Pill](../morphing/README.md#red-pill)
-      - [Evil Upgrades](../morphing/README.md#evil-upgrades)
-  - [Obfuscation Techniques](../obfuscation/README.md):
-      - [Hiding In Plain Sight](../obfuscation/README.md#hiding-in-plain-sight)
-      - [Hiding Behind Proxies](../obfuscation/README.md#hiding-behind-proxies)
-      - [Payload Packing](../obfuscation/README.md#payload-packing)
-  - [Poisoning Techniques](../poisoning/README.md):
-      - [Event Poisoning](../poisoning/README.md#event-poisoning)
-  - [Redirection Techniques](../redirection/README.md):
-      - [Selector Collisions](../redirection/README.md#selector-collisions)
-      - [Hidden Proxy](../redirection/README.md#hidden-proxy)
+  - [Spoofing Techniques](../samples/spoofing/README.md):
+      - [Inheritance Overriding](../samples/spoofing/README.md#inheritance-overriding)
+      - [Fake Implementation](../samples/spoofing/README.md#fake-standard-implementation)
+  - [Morphing Techniques](../samples/morphing/README.md):
+      - [Red Pill](../samples/morphing/README.md#red-pill)
+      - [Evil Upgrades](../samples/morphing/README.md#evil-upgrades)
+  - [Obfuscation Techniques](../samples/obfuscation/README.md):
+      - [Hiding In Plain Sight](../samples/obfuscation/README.md#hiding-in-plain-sight)
+      - [Hiding Behind Proxies](../samples/obfuscation/README.md#hiding-behind-proxies)
+      - [Payload Packing](../samples/obfuscation/README.md#payload-packing)
+  - [Poisoning Techniques](../samples/poisoning/README.md):
+      - [Event Poisoning](../samples/poisoning/README.md#event-poisoning)
+  - [Redirection Techniques](../samples/redirection/README.md):
+      - [Selector Collisions](../samples/redirection/README.md#selector-collisions)
+      - [Hidden Proxy](../samples/redirection/README.md#hidden-proxy)

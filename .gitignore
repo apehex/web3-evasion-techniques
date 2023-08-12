@@ -2,6 +2,8 @@
 .build/*
 *.aux
 *.bcf
+*.bib
+*.blg
 *.idx
 *.log
 *.ptc

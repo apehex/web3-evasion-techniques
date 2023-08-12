@@ -23,9 +23,9 @@
 % =======================================================================================
 \coverpage{\TITLE}{\SUBTITLE}{\AUTHOR}{\DATE}{\SUBJECT}
 %----------------------------------------------------------------------------------------
-\backgroundbarvisiblefalse
 %----------------------------------------------------------------------------------------
 \newpage
+\backgroundbarvisiblefalse
 \input{sections/preamble/context}
 \input{sections/preamble/changelog}
 \input{sections/preamble/contacts}
@@ -33,11 +33,9 @@
 \newpage
 \tableofcontents
 %----------------------------------------------------------------------------------------
-\backgroundbarvisibletrue
-%----------------------------------------------------------------------------------------
 
 % =======================================================================================
-%                                   PART 1: OVERVIW
+%                                   PART 0: OVERVIEW
 % =======================================================================================
 \part{Overview}
 %----------------------------------------------------------------------------------------
@@ -50,25 +48,30 @@
 % =======================================================================================
 \part{Known Techniques}
 %----------------------------------------------------------------------------------------
-\chapter{Faking} \label{ch:known-faking}
-\input{sections/known/faking/fake-standards-implementation}
-\input{sections/known/faking/overriding-standards-implementation}
-\input{sections/known/faking/bug-exploits}
+\chapter{Spoofing} \label{ch:known-spoofing}
+\input{sections/known/spoofing/description}
+\input{sections/known/spoofing/fake-standards-implementation}
+\newpage\input{sections/known/spoofing/overriding-standards-implementation}
+\newpage\input{sections/known/spoofing/bug-exploits}
 %----------------------------------------------------------------------------------------
 \chapter{Morphing} \label{ch:known-morphing}
+\input{sections/known/morphing/description}
 \input{sections/known/morphing/red-pill}
 % ---------------------------------------------------------------------------------------
 \chapter{Obfuscation} \label{ch:known-obfuscation}
+\input{sections/known/obfuscation/description}
 \input{sections/known/obfuscation/hiding-in-plain-sight}
 \newpage\input{sections/known/obfuscation/hiding-behind-proxies}
-\input{sections/known/obfuscation/hidden-state}
+\newpage\input{sections/known/obfuscation/hidden-state}
 % ---------------------------------------------------------------------------------------
 \chapter{Poisoning} \label{ch:known-poisoning}
+\input{sections/known/poisoning/description}
 \input{sections/known/poisoning/event-poisoning}
 % ---------------------------------------------------------------------------------------
 \chapter{Redirection} \label{ch:known-redirection}
+\input{sections/known/redirection/description}
 \input{sections/known/redirection/hidden-proxy}
-\input{sections/known/redirection/selector-collisions}
+\newpage\input{sections/known/redirection/selector-collisions}
 
 % =======================================================================================
 %                                   PART 2: FORESEEN
@@ -76,15 +79,20 @@
 \part{Foreseen Techniques}
 %----------------------------------------------------------------------------------------
 \chapter{Obfuscation} \label{ch:foreseen-obfuscation}
+\input{sections/foreseen/obfuscation/description}
 \input{sections/foreseen/obfuscation/packing}
 
 % =======================================================================================
 %                                   PART 3: TOOLING
 % =======================================================================================
+\addtocontents{toc}{\protect\newpage}
 \part{Detection Tools}
 %----------------------------------------------------------------------------------------
-\chapter{Static Analysis} \label{ch:static-analysis}
-\chapter{Dynamic Analysis} \label{ch:dynamic-analysis}
+\chapter{} \label{ch:}
+\section{Static Analysis} \label{sec:static-analysis}
+\section{Dynamic Analysis} \label{sec:dynamic-analysis}
+\section{Hybrid Analysis} \label{sec:hybrid-analysis}
+\chapter{The Forta Agent} \label{ch:forta-agent}
 
 % =======================================================================================
 %                                   PART 4: APPENDICES

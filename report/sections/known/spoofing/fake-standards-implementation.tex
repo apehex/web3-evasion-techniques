@@ -1,8 +1,8 @@
 \section{Fake Standard Implementation} \label{sec:fake-implementation}
 
-\subsection{Technical Details}
+\subsection{Overview}
 
-This technique takes on the function \& class names from the ERC standards, but the code inside is actually different.
+This contract borrows the function \& class names from the ERC standards, but the code inside is actually different.
 
 The malicious contracts generally pretend to be:
 
@@ -44,9 +44,17 @@ function _getImplementation() internal view returns (address) {
 
 Etherscan will show some irrelevant contract, giving the impression it is legit.
 
+\pagebreak
+\subsubsection{Fake ERC20 Token}
+
+Many phishing operations deploy fake tokens with the same symbol and name as the popular ones.
+
+For example, \href{https://etherscan.io/address/0x5ed7ca349efc40550eecef4b288158fb2b9f12de#code}{this contract} is spoofing the USDC token.
+It was used in \href{https://explorer.phalcon.xyz/tx/eth/0x7448178a8a03a0f1f298b697507f0e9172eacf1d32d422f48d0345c19c76eba3?line=33}{this phishing transactions}.
+
 \subsection{Detection \& Countermeasures}
 
-Several sources can be monitored:
+Several sources can be monitored, depending on the standard that is being spoofed:
 
 \begin{description}
 \item[Storage]{comparing the target of \lstinline[language=Solidity]{delegateCall} to the address in the storage slots of the standards}
