@@ -11,6 +11,7 @@
 \setcounter{tocdepth}{1} % TOC depth
 
 {
+\setlength{\parskip}{0pt}
 \hypersetup{hidelinks,backref=true,pagebackref=true,hyperindex=true,colorlinks=false,breaklinks=true,urlcolor=orange,bookmarks=true,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
 \@starttoc{toc}
 }
@@ -42,7 +43,8 @@
 \renewcommand*\l@chapter[2]{%
 \ifnum \c@tocdepth >\m@ne
   \addpenalty{-\@highpenalty}%
-  \vskip 0em
+  \vskip 0pt
+  \noindent\hspace*{4cm}\color{orange}\rule{\dimexpr\textwidth-4cm}{2pt}\par
   \begingroup
     \parindent \z@ \rightskip \@pnumwidth
     \leavevmode\colorbox{black}{\vtop{\hsize=\dimexpr\textwidth\relax

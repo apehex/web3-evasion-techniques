@@ -1,0 +1,37 @@
+\section{Data Sources} \label{sec:execution-time}
+
+The data available for analysis depends on the execution stage and scope.
+There are three main contexts.
+
+\subsection{Static Analysis}
+
+Outside execution, the blockchain and the surrounding services act as a cold storage.
+
+\begin{description}
+\item[contract metadata]{details like the contract's creator, the balance, the creation timestamp and associated Ether provide a context to the whole analysis}
+\item[bytecode representation]{similarly to the traditional binaries, smart contracts are compiled into bytecode which can be parsed: headers}
+\item[opcode sequences]{bytecode can be interpreted as a language, giving a level of abstraction to the analysis}
+\item[function signatures]{more specifically, functions can be extracted and compared to the reference implementations of the standards for example}
+\item[source code]{when available, this layer can hold deceptive measures for the human reader; hence, it is very informative + creation code (not in bytecode)}
+\end{description}
+
+\subsection{Dynamic Analysis}
+
+When a transaction is committed to the blockchain, trace data is generated:
+
+\begin{description}
+\item[transaction metadata]{the global variables \lstinline[language=Solidity]{block}, \lstinline[language=Solidity]{tx} and \lstinline[language=Solidity]{msg} hold valuable informations}
+\item[state changes]{storage slots and balance may change}
+\item[function calls]{this can be insightful in determining the contract's behavior}
+\item[external calls]{identify if the contract interacts with other contracts or addresses}
+\item[events]{the list of events is always available}
+\end{description}
+
+\subsection{Network Analysis}
+
+Statistics and graph theory can be applied on the blockchain as a whole:
+
+\begin{description}
+\item[transaction data]{the blockchain can be interpreted as a graph, with addresses as nodes and transactions as vertexes}
+\item[historical behavior]{the activity of a single address over time can be broken-down with statistics}
+\end{description}

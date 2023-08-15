@@ -42,6 +42,7 @@
 % \chapter{Introduction} \label{ch:introduction}
 \input{sections/preamble/introduction}
 \input{sections/preamble/methodology}
+\input{sections/preamble/related}
 
 % =======================================================================================
 %                                   PART 1: KNOWN
@@ -49,38 +50,42 @@
 \part{Known Techniques}
 %----------------------------------------------------------------------------------------
 \chapter{Spoofing} \label{ch:known-spoofing}
-\input{sections/known/spoofing/description}
-\input{sections/known/spoofing/fake-standards-implementation}
-\newpage\input{sections/known/spoofing/overriding-standards-implementation}
-\newpage\input{sections/known/spoofing/bug-exploits}
+\input{sections/evasion/known/spoofing/description}
+\input{sections/evasion/known/spoofing/fake-standards-implementation}
+\newpage\input{sections/evasion/known/spoofing/overriding-standards-implementation}
+\newpage\input{sections/evasion/known/spoofing/bug-exploits}
 %----------------------------------------------------------------------------------------
 \chapter{Morphing} \label{ch:known-morphing}
-\input{sections/known/morphing/description}
-\input{sections/known/morphing/red-pill}
+\input{sections/evasion/known/morphing/description}
+\input{sections/evasion/known/morphing/red-pill}
+\input{sections/evasion/known/morphing/lateral-movement}
 % ---------------------------------------------------------------------------------------
 \chapter{Obfuscation} \label{ch:known-obfuscation}
-\input{sections/known/obfuscation/description}
-\input{sections/known/obfuscation/hiding-in-plain-sight}
-\newpage\input{sections/known/obfuscation/hiding-behind-proxies}
-\newpage\input{sections/known/obfuscation/hidden-state}
+\input{sections/evasion/known/obfuscation/description}
+\input{sections/evasion/known/obfuscation/hiding-in-plain-sight}
+\newpage\input{sections/evasion/known/obfuscation/hiding-behind-proxies}
+\newpage\input{sections/evasion/known/obfuscation/hidden-state}
 % ---------------------------------------------------------------------------------------
 \chapter{Poisoning} \label{ch:known-poisoning}
-\input{sections/known/poisoning/description}
-\input{sections/known/poisoning/event-poisoning}
+\input{sections/evasion/known/poisoning/description}
+\input{sections/evasion/known/poisoning/event-poisoning}
 % ---------------------------------------------------------------------------------------
 \chapter{Redirection} \label{ch:known-redirection}
-\input{sections/known/redirection/description}
-\input{sections/known/redirection/hidden-proxy}
-\newpage\input{sections/known/redirection/selector-collisions}
+\input{sections/evasion/known/redirection/description}
+\input{sections/evasion/known/redirection/hidden-proxy}
+\newpage\input{sections/evasion/known/redirection/selector-collisions}
 
 % =======================================================================================
 %                                   PART 2: FORESEEN
 % =======================================================================================
 \part{Foreseen Techniques}
 %----------------------------------------------------------------------------------------
+\chapter{Spoofing} \label{ch:foreseen-spoofing}
+\input{sections/evasion/foreseen/spoofing/description}
+\input{sections/evasion/foreseen/spoofing/fake-users}
 \chapter{Obfuscation} \label{ch:foreseen-obfuscation}
-\input{sections/foreseen/obfuscation/description}
-\input{sections/foreseen/obfuscation/packing}
+\input{sections/evasion/foreseen/obfuscation/description}
+\input{sections/evasion/foreseen/obfuscation/packing}
 
 % =======================================================================================
 %                                   PART 3: TOOLING
@@ -88,11 +93,12 @@
 \addtocontents{toc}{\protect\newpage}
 \part{Detection Tools}
 %----------------------------------------------------------------------------------------
-\chapter{} \label{ch:}
-\section{Static Analysis} \label{sec:static-analysis}
-\section{Dynamic Analysis} \label{sec:dynamic-analysis}
-\section{Hybrid Analysis} \label{sec:hybrid-analysis}
-\chapter{The Forta Agent} \label{ch:forta-agent}
+\chapter{Malware Detection In Web3} \label{ch:transposing-to-web3}
+\input{sections/detection/description}
+\input{sections/detection/data}
+\input{sections/detection/technologies}
+\chapter{Designing The Forta Agent} \label{ch:forta-agent}
+\section{Taking Advantage Of The Network} \label{sec:}
 
 % =======================================================================================
 %                                   PART 4: APPENDICES

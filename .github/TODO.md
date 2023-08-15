@@ -1,28 +1,44 @@
 ## TODO
 
-- requires to fetch contract bytecode: slower agent?
-- online fuzzing & symbolic parsing?
-- bot context:
-  - how to request source code?
-  - how to fetch transaction history?
-- implement indicators as a lib?
-  - when the input data (contract source code) is not accessible for the bot?
-- YARA style reference implementations / signatures?
-- from Web2:
-  - living off the land (memory / network)
-  - injections (infecting common files)
-- report a hack / scam:
-  - https://www.chainabuse.com/report
-- how does detection impact scammers?
-  - (morphing / lateral mvt necessary?)
+### Plan
+
+- review
+  - malware evasion + detection
+  - all web3 conferences, papers, articles 2023
+- samples
+  - rekt / chainabuse hacks: filters
+  - Forta alerts
+- community
+- agent
+  - online fuzzing: cf attack simulation agent
+  - cluster addresses in transaction hisotry
+  - ml model to analyse bytecode
+  - YARA ?
+  - how to know about the samples that escaped detection?
+
+### // Web3
+
+- living off the land (memory / network)
+- injections (infecting common files)
+
+### Questions
+
+- too many RPC requests??
+
+- can I suppose the reader has the basics of malware detection?
+  - apply each concept to the evasion problem
+  - leave the basics at the end of the report ? stuff like defining signature based malware detection etc
+- level of detail for the detection:
+  - principle?
+  - code snippet
 - alternative taxonomy:
   - evading users (faking contracts)
   - evading reviewers (code volume, subtle exploits etc)
   - evaing tests (tx simulation)
   - evading tools (etherscan code review, forta, etc)
-- tx simulation:
-  - `block.basefee`
-  - `tx.gasprice`
+- switch order of the parts => detection before evasion?
+- how does detection impact scammers?
+  - (morphing / lateral mvt necessary?)
 - a mix of "normal" behaviors can be malicious: it's the mix that matters
   - normal token + normal proxy in a single contract is suspicious
   - identify each class of contracts independently
@@ -30,11 +46,3 @@
 - NORMAL behavior is key:
   - what is normal FOR a type of contract
   - sthg normal to a proxy is suspicious on a token
-- smartbugs: which is relevant?
-- level of detail for the detection:
-  - principle?
-  - code snippet
-- too many RPC requests??
-- how to write antivirus?
-  - combine metrics?
-  - language to describe complex combination of indicators?

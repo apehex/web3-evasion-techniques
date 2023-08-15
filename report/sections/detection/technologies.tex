@@ -1,0 +1,21 @@
+\section{Detection Technologies} \label{sec:detection-technologies}
+
+\subsection{Signature Based}
+
+Signature-based malware detection extracts distinctive information known as signatures to detect malware.
+then compared against references to determine whether the unclassified binary’s signature indicates malicious behavior.
+
+\subsubsection{YARA}
+
+YARA separates the detection logic from the software that scans files.
+It has a rule-based language extending the regular expressions.
+It was originally designed for traditional binaries, but the YARA rules could be applied to smart contract bytecode or even source code.
+
+\subsubsection{Semgrep}
+
+Similarly, \href{https://semgrep.dev/r?&lang=Solidity}{Semgrep patterns} can help prototype detection ideas.
+
+\subsubsection{Solidity Static Analysis Tools}
+
+Tools like Mythril, Slither, and Securify can analyze Solidity smart contract code for known vulnerabilities.
+While they primarily focus on vulnerabilities rather than malware, their methodologies could inspire a signature-based approach to detect malicious intent in smart contracts.
