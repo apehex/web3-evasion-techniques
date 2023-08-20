@@ -44,11 +44,10 @@
 \ifnum \c@tocdepth >\m@ne
   \addpenalty{-\@highpenalty}%
   \vskip 0pt
-  \noindent\hspace*{4cm}\color{orange}\rule{\dimexpr\textwidth-4cm}{2pt}\par
   \begingroup
     \parindent \z@ \rightskip \@pnumwidth
-    \leavevmode\colorbox{black}{\vtop{\hsize=\dimexpr\textwidth\relax
-      \hspace*{4cm}\strut\color{orange}\bfseries\sffamily\uppercase{#1}
+    \leavevmode\colorbox{darkgray}{\vtop{\hsize=\dimexpr\textwidth\relax
+      \hspace*{4cm}\strut\color{white}\bfseries\sffamily\uppercase{#1}
       \nobreak\hfill\nobreak\hb@xt@\@pnumwidth{\hss #2}\strut}}\par
     \penalty\@highpenalty
   \endgroup

@@ -9,7 +9,7 @@
 \input{context} % Global settings
 
 % =======================================================================================
-\addbibresource{bibliography/references.bib} % bibliography file
+\input{bibliography/urls}
 
 % =======================================================================================
 
@@ -42,12 +42,13 @@
 % \chapter{Introduction} \label{ch:introduction}
 \input{sections/preamble/introduction}
 \input{sections/preamble/methodology}
-\input{sections/preamble/related}
+% \input{sections/preamble/related}
 
 % =======================================================================================
-%                                   PART 1: KNOWN
+%                                   PART 2: KNOWN
 % =======================================================================================
-\part{Known Techniques}
+\input{sections/evasion/known/description}
+\part{Known Evasion Techniques}
 %----------------------------------------------------------------------------------------
 \chapter{Spoofing} \label{ch:known-spoofing}
 \input{sections/evasion/known/spoofing/description}
@@ -76,29 +77,43 @@
 \newpage\input{sections/evasion/known/redirection/selector-collisions}
 
 % =======================================================================================
-%                                   PART 2: FORESEEN
+%                                   PART 3: FORESEEN
 % =======================================================================================
-\part{Foreseen Techniques}
+% \addtocontents{toc}{\protect\newpage}
+\input{sections/evasion/foreseen/description}
+\part{Foreseen Evasion Techniques}
 %----------------------------------------------------------------------------------------
 \chapter{Spoofing} \label{ch:foreseen-spoofing}
 \input{sections/evasion/foreseen/spoofing/description}
-\input{sections/evasion/foreseen/spoofing/fake-users}
+\input{sections/evasion/foreseen/spoofing/sybils}
 \chapter{Obfuscation} \label{ch:foreseen-obfuscation}
 \input{sections/evasion/foreseen/obfuscation/description}
 \input{sections/evasion/foreseen/obfuscation/packing}
+\chapter{Poisoning} \label{ch:foreseen-poisoning}
+\input{sections/evasion/foreseen/poisoning/description}
+\input{sections/evasion/foreseen/poisoning/living-off-the-land}
 
 % =======================================================================================
-%                                   PART 3: TOOLING
+%                                   PART 1: DETECTION
 % =======================================================================================
-\addtocontents{toc}{\protect\newpage}
-\part{Detection Tools}
-%----------------------------------------------------------------------------------------
-\chapter{Malware Detection In Web3} \label{ch:transposing-to-web3}
 \input{sections/detection/description}
-\input{sections/detection/data}
-\input{sections/detection/technologies}
-\chapter{Designing The Forta Agent} \label{ch:forta-agent}
-\section{Taking Advantage Of The Network} \label{sec:}
+\part{Detection In Web3}
+%----------------------------------------------------------------------------------------
+\chapter{Static Analysis} \label{ch:static-analysis}
+\input{sections/detection/static/description}
+\input{sections/detection/static/metadata}
+\input{sections/detection/static/code}
+\chapter{Dynamic Analysis} \label{ch:dynamic-analysis}
+\input{sections/detection/dynamic/description}
+\input{sections/detection/dynamic/metadata}
+\input{sections/detection/dynamic/traces}
+\chapter{Hybrid Analysis} \label{ch:hybrid-analysis}
+\input{sections/detection/hybrid/description}
+\input{sections/detection/hybrid/statistics}
+\input{sections/detection/hybrid/graph}
+\chapter{Taxonomy} \label{ch:taxonomy}
+\input{sections/detection/taxonomy/description}
+\input{sections/detection/taxonomy/diagram}
 
 % =======================================================================================
 %                                   PART 4: APPENDICES
@@ -115,6 +130,6 @@
 \chapter{Samples}
 \input{appendices/samples}
 %----------------------------------------------------------------------------------------
-\newpage\printbibliography[title = {Resources}]
+% \newpage\printbibliography[title = {Resources}]
 
 \end{document}
