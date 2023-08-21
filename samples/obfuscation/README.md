@@ -1,3 +1,3 @@
 # Obfuscation Techniques
 
-Make the malicious portions of the code hard to find / understand.
+Obfuscation is the process of making (malicious) code hard to find and understand.

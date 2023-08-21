@@ -1,3 +1,3 @@
 # Faking Techniques
 
-Disguise malicious code as well-known or vulnerable code (honeypots) to bait users.
+Spoofing is the art of disguising malicious code as well-known or vulnerable code (honeypots) to bait users.

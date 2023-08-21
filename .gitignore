@@ -12,3 +12,9 @@
 
 # bibliography
 *.bbl
+
+# api keys
+.env.json
+
+# python env
+pyproject.toml
