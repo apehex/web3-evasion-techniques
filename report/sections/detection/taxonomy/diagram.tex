@@ -1,0 +1,15 @@
+\begin{figure}[ht]
+\begin{tikzpicture}[node distance = 3cm, auto]
+    \node [block]                       (root)      {Class};
+    \node [block, right of = root]      (detection) {Detection};
+    \node [block, below of = detection] (evasion)   {Evasion};
+
+    \path [line] (root) -- (detection) ;
+    \path [line] (root) |- (evasion);
+\end{tikzpicture}
+\caption{Taxonomy of the detection \& evasion techniques} \label{fig:taxonomy}
+\end{figure}
+
+The evasion tactics leave traces on all the levels: static, dynamic and hybrid analysis all have a role to play in their detection.
+
+So the specifics of the detection methods depend entirely on their target: the rest of the document will focus on each evasion mechanism and draw specialized indicators of compromise.

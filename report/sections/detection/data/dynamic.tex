@@ -1,0 +1,32 @@
+\section{Dynamic Analysis} \label{sec:data-dynamic}
+
+When a transaction is committed to the blockchain, the targeted smart contract is executed.
+This process generates trace data.
+
+\subsection{Metadata}
+
+the global variables \lstinline[language=Solidity]{block}, \lstinline[language=Solidity]{tx} and \lstinline[language=Solidity]{msg} hold valuable informations
+
+\subsubsection{Transaction Sender}
+
+\subsubsection{Transaction Timestamp}
+
+\subsubsection{Events (Topics)}
+
+\subsection{Execution Traces}
+
+Execution traces can be obtained either by replaying locally a transaction or by querying a RPC node with tracing enabled.
+
+\subsubsection{State Changes}
+
+storage slots
+
+balance may change
+
+\subsubsection{External Function Calls}
+
+identify if the contract interacts with other contracts or addresses
+
+\subsubsection{Internal Function Calls}
+
+this can be insightful in determining the contract's behavior

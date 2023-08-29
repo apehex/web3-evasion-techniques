@@ -1,0 +1,26 @@
+\section{Logic Bomb} \label{sec:time-bomb}
+
+\subsection{Overview}
+
+As \href{\urlarticlelogicbomb}{Wikipedia states it}: a logic bomb is a piece of code intentionally inserted into a software system that will set off a malicious function when specified conditions are met.
+These conditions are usually related to:
+
+\begin{itemize}
+\item{the execution time: it can check the \lstinline[language=Solidity]{block.timestamp} or \lstinline[language=Solidity]{block.number} for example}
+\item{the execution environment: actually, the technique from section \ref{sec:red-pill} is a subclass of the logic bomb}
+\end{itemize}
+
+Some logic bombs are meant to counter symbolic testing.
+These bombs nest conditional statements without actually caring about the tests themselves.
+The simple chaining of conditions has the effect of exponantially increasing the number of execution paths.
+In the end, it may overload the testing process.
+
+\subsection{Evasion Targets}
+
+\subsubsection{Tests}
+
+\subsection{Samples}
+
+\subsubsection{Executing Raw Bytecode}
+
+\subsection{Detection \& Countermeasures}

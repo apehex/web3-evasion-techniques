@@ -5,8 +5,8 @@
 \documentclass[11pt,fleqn,oneside]{book} % Default font size and left-justified equations
 
 % =======================================================================================
-\input{template/book/main} % Commands and appearance of the template
 \input{context} % Global settings
+\input{template/book/main} % Commands and appearance of the template
 
 % =======================================================================================
 \input{bibliography/urls}
@@ -39,10 +39,24 @@
 % =======================================================================================
 \part{Overview}
 %----------------------------------------------------------------------------------------
-% \chapter{Introduction} \label{ch:introduction}
 \input{sections/preamble/introduction}
 \input{sections/preamble/methodology}
 % \input{sections/preamble/related}
+
+% =======================================================================================
+%                                   PART 1: DETECTION
+% =======================================================================================
+\input{sections/detection/description}
+\part{Detection In Web3}
+%----------------------------------------------------------------------------------------
+\chapter{Data Sources} \label{ch:data-sources}
+\input{sections/detection/data/description}
+\input{sections/detection/data/static}
+\input{sections/detection/data/dynamic}
+\input{sections/detection/data/hybrid}
+\chapter{Taxonomy} \label{ch:taxonomy}
+\input{sections/detection/taxonomy/description}
+\input{sections/detection/taxonomy/diagram}
 
 % =======================================================================================
 %                                   PART 2: KNOWN
@@ -86,34 +100,15 @@
 \chapter{Spoofing} \label{ch:foreseen-spoofing}
 \input{sections/evasion/foreseen/spoofing/description}
 \input{sections/evasion/foreseen/spoofing/sybils}
+\chapter{Morphing} \label{ch:foreseen-morphing}
+\input{sections/evasion/foreseen/morphing/description}
+\input{sections/evasion/foreseen/morphing/logic-bomb}
 \chapter{Obfuscation} \label{ch:foreseen-obfuscation}
 \input{sections/evasion/foreseen/obfuscation/description}
 \input{sections/evasion/foreseen/obfuscation/packing}
 \chapter{Poisoning} \label{ch:foreseen-poisoning}
 \input{sections/evasion/foreseen/poisoning/description}
 \input{sections/evasion/foreseen/poisoning/living-off-the-land}
-
-% =======================================================================================
-%                                   PART 1: DETECTION
-% =======================================================================================
-\input{sections/detection/description}
-\part{Detection In Web3}
-%----------------------------------------------------------------------------------------
-\chapter{Static Analysis} \label{ch:static-analysis}
-\input{sections/detection/static/description}
-\input{sections/detection/static/metadata}
-\input{sections/detection/static/code}
-\chapter{Dynamic Analysis} \label{ch:dynamic-analysis}
-\input{sections/detection/dynamic/description}
-\input{sections/detection/dynamic/metadata}
-\input{sections/detection/dynamic/traces}
-\chapter{Hybrid Analysis} \label{ch:hybrid-analysis}
-\input{sections/detection/hybrid/description}
-\input{sections/detection/hybrid/statistics}
-\input{sections/detection/hybrid/graph}
-\chapter{Taxonomy} \label{ch:taxonomy}
-\input{sections/detection/taxonomy/description}
-\input{sections/detection/taxonomy/diagram}
 
 % =======================================================================================
 %                                   PART 4: APPENDICES
