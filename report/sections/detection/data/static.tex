@@ -3,28 +3,97 @@
 Outside of execution, the blockchain acts as a cold storage.
 In this first context, the detection methods are called "static analysis".
 
-\subsection{Block \& Transaction Metadata}
+\subsection{Creation Metadata}
+
+The block and transaction objects hold a lot of data related to the infrastructure of the blockchain.
+These informations, like \lstinline[language=Solidity]{block.difficulty} or \lstinline[language=Solidity]{block.gaslimit}, can be ignored when considering the smart contracts.
+
+Still, the global variables \lstinline[language=Solidity]{block}, \lstinline[language=Solidity]{msg} and \lstinline[language=Solidity]{tx} hold valuable informations.
 
 \subsubsection{Contract's creator}
 
-\subsubsection{Transaction Metadata}
+The values \lstinline[language=Solidity]{msg.sender} \& \lstinline[language=Solidity]{tx.origin} of the transaction that created the contract tell us who did it!
+
+This would be like having an IP: the addresses can be indexed to follow the activity of known attackers.
+
+In turn, bad actors can simply use new "external owned accounts" (EOA) and redeploy / upgrade their contracts.
 
 Details like the contract's creator, the balance, the creation timestamp and associated Ether provide a context to the whole analysis
 
-\subsection{Code} \label{sec:static-code}
+\subsubsection{Creation Cost}
 
-\subsubsection{Bytecode}
+The product of the gas price and gas used gives the cost of the smart contract deployment.
 
-Similarly to the traditional binaries, smart contracts are compiled into bytecode which can be parsed: headers
+This gas consumption is directly related to the intensity of the processing involved.
+The historical data can be compared to a local replay to determine if all the operations are accounted for in the deployment code.
+
+\subsection{Bytecode}
+
+Similarly to the traditional binaries, smart contracts are compiled into bytecode.
+It has several sections which can be parsed: OpenZeppelin wrote an in-depth article on the \href{\urldiagrambytecode}{structure of smart contract bytecode}.
+
+In itself, providing only the bytecode (and not the sources) is already a layer of obfuscation.
+But it is always available and has all the logic of the smart contract.
+
+\subsubsection{Function Selectors}
+
+Functions are not called by name, but by their selector.
+And the selectors are hashes computed on the signature, like \lstinline[language=Solidity]{transfer(address,uint256)}:
+
+\begin{lstlisting}[language=Python]
+Web3.keccak(text='transfer(address,uint256)').hex().lower()[:10]
+# '0xa9059cbb'
+\end{lstlisting}
+
+The list of selectors for all the function in the bytecode is \href{\urldiagrambytecode}{found in its hub}.
+
+Keeping an \href{\urlwebindexselectors}{updated index of all known selectors} allows to go back from hash to signature.
+It gives a lot of insight on the expected behavior of a contract.
+
+On the other hand, nothing prevents malicious actors from \href{https://www.4byte.directory/signatures/?bytes4_signature=0xa9059cbb}{naming their functions as they please}.
+
+\subsubsection{Function Bodies}
+
+Of course, execution requires instructions: the function bodies implement the logic of the contract.
+
+Just like binaries, they can be \href{\urlarticlereversingcontract}{reversed and analysed statically}.
+This opens the way for pattern matching and manual reviews of the code.
+
+However, these processes can be hindered with code stuffing and other techniques like packing (encryption, compression, etc).
+
+\subsubsection{Constructor}
+
+It may sound counterintuitive, but the smart contract constructor is not included in the bytecode deployed on the blockchain.
+It is called once to initialize the contract state and generate the final code that will sit on the blockchain.
+
+It can be found:
+
+\begin{itemize}
+\item{in the data of the \href{https://etherscan.io/tx/0xd66169d4a5feaceaf777b9949ad0e9bc5621a438846a90087e50a5d7b9b0ad1e}{transaction that created the contract}}
+\item{or in the source code, if provided as is discussed below}
+\end{itemize}
+
+The storage slots hold values that can totally change the behavior of the contract.
+Admin privileges can at as a backdoor and enable rug pulls for example.
+
+Attackers will try and sneak data into the contract's state.
 
 \subsubsection{Opcode Sequence}
 
-Bytecode can be interpreted as a language, giving a level of abstraction to the analysis.
+\href{\urlcodeevmdasm}{Bytecode can be interpreted as a language}, giving a level of abstraction to the analysis.
 
-\subsubsection{Function Signatures}
+Indeed, different hex bytecodes can achieve the same result.
+It is easier to get the high level logic from the sequences of opcodes than from raw and specific hex chunks.
 
-More specifically, functions can be extracted and compared to the reference implementations of the standards for example
+So the analysis mentioned above can be performed on opcodes, after disassembling the binary.
+But disassembling is not an exact science and it can be made even harder by classic techniques like \href{\urlpapereshield}{anti-patterns}.
 
-\subsubsection{Source code}
+\subsection{Source code}
 
-When available, this layer can hold deceptive measures for the human reader; hence, it is very informative + creation code (not in bytecode)
+First, source code is not always available: the blockchain itself doesn't hold it, it has to be supplied to third party services, e.g. block explorers.
+
+When it is, it provides human readable code, which makes reverse engineering easier by hand.
+It is important to understand new attacks, but orders of magnitude too time consuming to provide live intelligence.
+
+Furthermore, the underlying language has many ambiguities and \href{\urldocssoliditybugs}{bugs}.
+They can be leveraged to mislead analysts and tools.

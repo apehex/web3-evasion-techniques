@@ -1,13 +1,61 @@
-\begin{figure}[ht]
-\begin{tikzpicture}[node distance = 3cm, auto]
-    \node [block]                       (root)      {Class};
-    \node [block, right of = root]      (detection) {Detection};
-    \node [block, below of = detection] (evasion)   {Evasion};
-
-    \path [line] (root) -- (detection) ;
-    \path [line] (root) |- (evasion);
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[
+text=white,
+mindmap,
+grow cyclic,
+every node/.style={concept},
+level 1/.append style={level distance=5cm, sibling angle=180},
+level 2/.append style={level distance=4cm, sibling angle=60},
+level 3/.append style={level distance=3cm, sibling angle=60}]
+\node[concept color=black, text=white] {Malicious smart contracts}
+    child[concept color=green, text=black, grow=120] {node {Analysis}
+        child[concept color=green!10!white, text=black, grow=40] {node {Static}
+            child {node {Metadata}}
+            child {node {Bytecode}}
+            child {node {Source code}}
+        }
+        child[concept color=green!25!white, text=black, grow=120] {node {Dynamic}
+            child {node {Metadata}}
+            child {node {Events}}
+            child {node {Traces}}
+        }
+        child[concept color=green!50!white, text=black, grow=200] {node {Hybrid}
+            child {node {Graph}}
+            child {node {Symbolic}}
+            child {node {Statistics}}
+        }
+    }
+    child[concept color=red, text=black, grow=300] {node {Evasion}
+        child[concept color=red!95!black, text=black, grow=180] {node {Spoofing}
+            child {node {A.A}}
+            child {node {A.B}}
+            child {node {A.C}}
+        }
+        child[concept color=red!75!black, text=white, grow=240] {node {Morphing}
+            child {node {B.A}}
+            child {node {B.B}}
+            child {node {B.C}}
+        }
+        child[concept color=red!50!black, text=white, grow=300] {node {Obfuscation}
+            child {node {C.A}}
+            child {node {C.B}}
+            child {node {C.C}}
+        }
+        child[concept color=red!25!black, text=white, grow=0] {node {Poisoning}
+            child {node {D.A}}
+            child {node {D.B}}
+            child {node {D.C}}
+        }
+        child[concept color=red!10!black, text=white, grow=60] {node {Redirection}
+            child {node {D.A}}
+            child {node {D.B}}
+            child {node {D.C}}
+        }
+    };
 \end{tikzpicture}
-\caption{Taxonomy of the detection \& evasion techniques} \label{fig:taxonomy}
+\caption{Taxonomy of the detection \& evasion techniques}
+\label{fig:taxonomy}
 \end{figure}
 
 The evasion tactics leave traces on all the levels: static, dynamic and hybrid analysis all have a role to play in their detection.

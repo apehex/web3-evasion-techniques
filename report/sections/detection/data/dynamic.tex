@@ -1,32 +1,86 @@
 \section{Dynamic Analysis} \label{sec:data-dynamic}
 
 When a transaction is committed to the blockchain, the targeted smart contract is executed.
-This process generates trace data.
+The actual behavior of the contract can be witnessed first hand in this "dynamic" analysis, rather than infered.
 
-\subsection{Metadata}
+\subsection{Execution Metadata}
 
-the global variables \lstinline[language=Solidity]{block}, \lstinline[language=Solidity]{tx} and \lstinline[language=Solidity]{msg} hold valuable informations
+First, the execution can be monitored on the blockchain nodes, with the actual live data.
 
-\subsubsection{Transaction Sender}
+\subsubsection{Transaction Origin}
 
-\subsubsection{Transaction Timestamp}
+Just like the the contract's creator, every address the contract interacts with can be indexed.
+This way, one suspicious occurrence can be correlated with others to increase the accuracy.
 
-\subsubsection{Events (Topics)}
+Again, the attackers can answer with lateral movement.
+
+\subsubsection{Transaction Recipient}
+
+Here the \lstinline[language=Solidity]{to} field can only be the contract under inspection.
+However it can call other addresses as part of its processing, as seen below.
+
+\subsubsection{Transaction Gas}
+
+As mentioned earlier, gas is directly linked to the intensity of the operations in the transaction.
+
+Like CPU and RAM overloading, intensive computation can be the sign of unwanted activity.
+Or it can be exploited for its own value: similarly to CPU / GPU mining, gas can sometimes be redeemed by attackers.
+
+Still, the blockchain always has its "task manager" open, so it is hard to fly these tricks under the radar.
+
+\subsubsection{Transaction Value}
+
+High value transactions are not necessarily bad, but they are bound to attract attention.
+
+Bad actors will lower the noise levels by mixing / scattering the cash flow for example.
+
+\subsection{Event Logs (Topics)}
+
+The events triggered by a given transaction are encoded in the logs, more specifically in their topics and data fields.
+The type and arguments of the events hold a lot of information by themselves. Also the emitting address tells what external contracts were called if any.
+
+Sometimes the presence of events is suspicious: in case of a high number of transfers for example.
+
+Other times their absence has implications: upgrading the implementation of a proxy without triggering an \lstinline{Upgraded} event is at least weird.
 
 \subsection{Execution Traces}
 
 Execution traces can be obtained either by replaying locally a transaction or by querying a RPC node with tracing enabled.
 
-\subsubsection{State Changes}
+\subsubsection{Internal Function Calls}
 
-storage slots
+The flow of internal calls can be debugged locally, which may be the most insightful analysis tool.
 
-balance may change
+Just like traditional malware, smart contracts have means to evade debugging: tests can be detected, the logic of the contract can be cluttered...
 
 \subsubsection{External Function Calls}
 
-identify if the contract interacts with other contracts or addresses
+A given smart contract can redirect the execution flow to external addresses.
+\lstinline[language=Solidity]{address.call} will segregate the contexts of the contracts, while \lstinline[language=Solidity]{address.delegatecall} allows the target contract to modify the state of the origin address.
 
-\subsubsection{Internal Function Calls}
+These external calls may be aimed at:
 
-this can be insightful in determining the contract's behavior
+\begin{itemize}
+\item{EOAs, for example to bait them into performing unsafe actions}
+\item{legitimate contracts, to loan, launder, exploit, etc}
+\item{malicious contracts, to split and layer the suspicious activity}
+\end{itemize}
+
+Splitting the logic over several contracts is a way to make local debugging harder too.
+
+\subsection{State Changes}
+
+State changes cover:
+
+\begin{itemize}
+\item{modification of the data in the storage slots}
+\item{changes to the balance of the address}
+\end{itemize}
+
+In particular, the storage of ERC contracts hold a lot of financial information, which is valuable in itself:
+token holders, exchange rates, administrative privileges, etc.
+
+Because of the way data is \href{\urldocsstoragelayout}{encoded and positioned in the storage slots}, there is no way to tell which slots are used without context.
+This context can come from the transaction history or local debugging.
+
+In any case the storage is stealthy by design.

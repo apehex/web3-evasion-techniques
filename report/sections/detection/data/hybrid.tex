@@ -3,13 +3,27 @@
 Zooming out from the perspective of a single smart contract, the blockchain can be considered as a whole.
 This is a mix of the static data over all addresses and the dynamic data generated over time and addresses.
 
-\subsection{Statistics} \label{sec:hybrid-stats}
+Rather than going over all the data sources again, this section offers new angles from which they can be considered.
+
+\subsection{Statistics}
 
 The activity of a single address over time can be broken-down with statistics
 
 Cash flow.
 
+\subsubsection{Creation time}
+
+The age of the contract can be learnt from \lstinline[language=Solidity]{block.timestamp} and \lstinline[language=Solidity]{block.number}.
+
+It can be used to weight other temporal data
+
 \subsection{Graph Theory} \label{sec:hybrid-graph}
 
 The blockchain archive can be seen as a temporal graph.
 While the exact structure can vary depending on the application, generally the nodes are the addresses and the vertices are transactions.
+
+\subsection{Machine learning}
+
+\subsection{Symbolic Fuzzing}
+
+Tools like \href{\urlcodehoneybadger}{HoneyBadger} leverage symbolic testing to explore all the execution paths.
