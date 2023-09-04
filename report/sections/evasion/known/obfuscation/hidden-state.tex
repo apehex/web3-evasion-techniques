@@ -2,7 +2,7 @@
 
 \subsection{Overview}
 
-The storage slots are not explicitely listed: it is easy to stash data without trace.
+The used storage slots are not explicitely listed: data can be slipped in the huge address space of the storage without leaving a public handle.
 
 \begin{description}
 \item[initialization]{the constructor code is not in the available bytecode, it can fill slots without raising any flag}
@@ -21,11 +21,12 @@ Actually, this method is effective against all the detection agents:
 
 The contract can be entirely legitimate, and compromising the storage is enough.
 
-It has been demonstrated by Yoav Weiss \cite{video-masquerading-code} with a \href{https://github.com/safe-global/safe-contracts}{Gnosis Safe}.
+It has been \href{\urlvideomasqueradingcode}{demonstrated by Yoav Weiss} with a \href{https://github.com/safe-global/safe-contracts}{Gnosis Safe}.
 The constructor injected an additional owner into the storage, allowing a hidden address to perform administrative tasks.
 
 \subsection{Detection \& Countermeasures}
 
-\begin{description}
-\item[]{}
-\end{description}
+\subsubsection{Gas consumption}
+
+Storing data on the blockchain is a \href{\urldocsgascost}{very costly operation}.
+If nothing else, changes to the storage can be detected through gas consumption, especially when writing to empty / unsued slots.

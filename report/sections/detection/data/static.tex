@@ -8,7 +8,7 @@ In this first context, the detection methods are called "static analysis".
 The block and transaction objects hold a lot of data related to the infrastructure of the blockchain.
 These informations, like \lstinline[language=Solidity]{block.difficulty} or \lstinline[language=Solidity]{block.gaslimit}, can be ignored when considering the smart contracts.
 
-Still, the global variables \lstinline[language=Solidity]{block}, \lstinline[language=Solidity]{msg} and \lstinline[language=Solidity]{tx} hold valuable informations.
+Other details like the contract's creator, the balance, the creation timestamp and associated Ether provide a context to the whole analysis.
 
 \subsubsection{Contract's creator}
 
@@ -17,8 +17,6 @@ The values \lstinline[language=Solidity]{msg.sender} \& \lstinline[language=Soli
 This would be like having an IP: the addresses can be indexed to follow the activity of known attackers.
 
 In turn, bad actors can simply use new "external owned accounts" (EOA) and redeploy / upgrade their contracts.
-
-Details like the contract's creator, the balance, the creation timestamp and associated Ether provide a context to the whole analysis
 
 \subsubsection{Creation Cost}
 
@@ -63,17 +61,13 @@ However, these processes can be hindered with code stuffing and other techniques
 
 \subsubsection{Constructor}
 
-It may sound counterintuitive, but the smart contract constructor is not included in the bytecode deployed on the blockchain.
+The smart contract constructor is not included in the bytecode deployed on the blockchain.
 It is called once to initialize the contract state and generate the final code that will sit on the blockchain.
 
-It can be found:
+So it can be found in the data of the \href{https://etherscan.io/tx/0xd66169d4a5feaceaf777b9949ad0e9bc5621a438846a90087e50a5d7b9b0ad1e}{transaction that created the contract}.
+Or in the source code, if provided (discussed below).
 
-\begin{itemize}
-\item{in the data of the \href{https://etherscan.io/tx/0xd66169d4a5feaceaf777b9949ad0e9bc5621a438846a90087e50a5d7b9b0ad1e}{transaction that created the contract}}
-\item{or in the source code, if provided as is discussed below}
-\end{itemize}
-
-The storage slots hold values that can totally change the behavior of the contract.
+The constructor sets storage slots, which hold values that can totally change the behavior of the contract.
 Admin privileges can at as a backdoor and enable rug pulls for example.
 
 Attackers will try and sneak data into the contract's state.
@@ -92,8 +86,8 @@ But disassembling is not an exact science and it can be made even harder by clas
 
 First, source code is not always available: the blockchain itself doesn't hold it, it has to be supplied to third party services, e.g. block explorers.
 
-When it is, it provides human readable code, which makes reverse engineering easier by hand.
-It is important to understand new attacks, but orders of magnitude too time consuming to provide live intelligence.
+With it, code review is humanly possible and reverse engineering becomes easier.
+Sources help significantly to understand new attacks, but are orders of magnitude too time consuming to provide live intelligence.
 
-Furthermore, the underlying language has many ambiguities and \href{\urldocssoliditybugs}{bugs}.
-They can be leveraged to mislead analysts and tools.
+Also, Solidity can be misleading because of the many ambiguities and \href{\urldocssoliditybugs}{bugs}.
+Attackers will take advantage of the imprecision in the tools and the limited resources of human reviewers.

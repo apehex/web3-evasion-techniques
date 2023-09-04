@@ -51,19 +51,11 @@ It is at storage slot 1, while the fallback function overwrites the storage slot
 
 In short, sending funds to this contract will never make you the actual owner.
 
-\subsubsection{Method Overwriting}
-
-\begin{lstlisting}[language=Solidity]
-
-\end{lstlisting}
-
 \subsection{Detection \& Countermeasures}
 
-While subtle for the human reader, tools can rather easily detect it in:
+\subsubsection{Source Code}
 
-\begin{description}
-\item[source code]{the sources can be checked for duplicate definitions \& polymorphism}
-\item[bytecode]{}
-\end{description}
+While subtle for the human reader, tools can easily scan the sources for duplicate definitions and polymorphism.
 
 Since the whole point is to advertize for a functionality with the sources, they will be available.
+However, the bytecode does not provide any information on this class of evasion.

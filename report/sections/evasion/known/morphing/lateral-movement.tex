@@ -2,14 +2,42 @@
 
 \subsection{Overview}
 
-New:
-- EOA addresses
-- logic contracts
+After being detected, attackers can either improve their scheme... Or just rinse and repeat!
+This is a very basic and widespread method.
 
-Evade transactions history parsers.
+More specifically, attackers can just:
+
+\begin{itemize}
+\item{create new EOA addresses}
+\item{deploy several instances of their contracts}
+\end{itemize}
 
 \subsection{Evasion Targets}
 
+\subsubsection{Block Explorers}
+
+Many block explorers allow users to \href{https://etherscan.io/address/0x00000c07575bb4e64457687a0382b4d3ea470000}{tag addresses}, especially scams.
+
+This is a manual process, so new addresses have to be discovered and tagged, even exact duplicates.
+
+\subsubsection{User Tools}
+
+This simple trick will get attackers past the blacklists of wallets and firewalls, for a time.
+
 \subsection{Samples}
 
+Fake tokens have been deployed in numerous phishing scams.
+This particular USDT variant has \href{https://etherscan.io/find-similar-contracts?a=0xA15B3d31F1f5D544933C35eB00568Ead238B4f63&m=low&ps=25&mt=1}{412 siblings in ETH}.
+
 \subsection{Detection \& Countermeasures}
+
+\subsubsection{Bytecode}
+
+Signatures of the attacking contract can be indexed in a database, so that when a new sample surfaces it will be instantly found.
+
+\subsubsection{Graph Analysis}
+
+The secondary addresses will most likely interact with their siblings / parent at some point.
+In particular the collected funds may be redirected to a smaller set of addresses for cashout.
+
+Graph analysis would propagate its suspicions from parent to child nodes.
