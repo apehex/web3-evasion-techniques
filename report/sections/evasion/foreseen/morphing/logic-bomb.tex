@@ -1,4 +1,4 @@
-\section{Logic Bomb} \label{sec:time-bomb}
+\section{Logic Bomb} \label{sec:logic-bomb}
 
 \subsection{Overview}
 
@@ -8,6 +8,7 @@ These conditions are usually related to:
 \begin{itemize}
 \item{the execution time: it can check the \lstinline[language=Solidity]{block.timestamp} or \lstinline[language=Solidity]{block.number} for example}
 \item{the execution environment: actually, the technique from section \ref{sec:red-pill} is a subclass of the logic bomb}
+\item{patterns in the input data: typically, the execution can depend on the address of the sender}
 \end{itemize}
 
 Some logic bombs are meant to counter symbolic testing.
@@ -17,10 +18,31 @@ In the end, it may overload the testing process.
 
 \subsection{Evasion Targets}
 
-\subsubsection{Tests}
+\subsubsection{User Tools}
 
-\subsection{Samples}
+Just as the red-pill bypassed wallets \ref{sec:red-pill}, logic-bombs may fool other tools.
 
-\subsubsection{Executing Raw Bytecode}
+For example, the past transactions listed in a block explorer may give a false sense of security.
+There is no guarantee that similar calls will result in the same results in a different context (different sender, later time, etc).
+
+Honeypots tend to fail once there is enough transaction records to show that the vulnerability is not exploitable.
+However, a malicious smart contract may only need to perform it's evil actions in a fraction of the transactions it processes.
+These failed attempts could be flooded in attractive promises of gain as shown by other past transactions.
+
+\subsubsection{Security Tools}
+
+Most likely the fuzzing of security tools will remain in the space where the malicious functionalities are disabled.
+\href{\urlarticlepathexplosion}{Path explosion} is also designed specifically to break the symbolic analysis of code in general.
+
+\subsection{POC}
 
 \subsection{Detection \& Countermeasures}
+
+\subsubsection{Fuzzing}
+
+Here, the probability of detecting such tricks depends of the extent of the input space covered by the tests.
+Security tools should fuzz the metadata of the transactions too.
+
+\subsubsection{Opcodes}
+
+Scanning the bytecode for unusual opcodes may be enough to uncover logic-bombs.

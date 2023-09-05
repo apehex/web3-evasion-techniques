@@ -2,14 +2,37 @@
 
 \subsection{Overview}
 
-Encryption / encoding / compression can be leveraged to make malicious code unreadable.
+For software executables, packing applies a combination of encryption / encoding / compression on a binary.
+These operations are reversed during execution. Originally, the purpose was to spare secondary memory and make software more compact.
+
+This motivation \href{https://medium.com/joyso/solidity-compress-input-in-smart-contract-d9a0eee30fe0}{still stands on the blockchain}, where processing and storage are especially costly.
+Several schemes for compression are being studied, even on the \href{https://eips.ethereum.org/EIPS/eip-3772}{EVM level}.
+
+These techniques could also be leveraged to harden contracts against reverse-engineering.
+Both data and / or code can be packed, by the contract itself, a proxy or a web app.
+
+Unpacking can be performed either by the contract itself or by a proxy.
 
 \subsection{Evasion Targets}
 
-Pattern matching on the bytecode.
+\subsubsection{Block Explorers}
 
-\subsection{Samples}
+With the input data packed in the transaction history, making sense of past events is harder.
+
+\subsubsection{Security Tools}
+
+All the known patterns and signatures will fail on the packed data.
+
+\subsubsection{Security Reviewers}
+
+Interacting with a packed contract may require additional layers of (un)packing to handle the input and outputs.
+If the (byte)code is packed, static analysis will be significantly slowed too.
+
+\subsection{POC}
 
 \subsection{Detection \& Countermeasures}
 
-1. Scanning for high entropy data
+\subsubsection{Entropy}
+
+Usually, these obfuscation schemes can be detected by measuring the entropy.
+This is harder to implement in this context because the blockchain makes extensive use of hashing algorithms, which are high entropy.

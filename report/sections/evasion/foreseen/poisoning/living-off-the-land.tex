@@ -3,17 +3,22 @@
 \subsection{Overview}
 
 Living off the land means surviving on what you can forage, hunt, or grow in nature.
-For malware, it means using 
+For malware, it means using generic, OS-level, tools to compromise a target.
 
-- callbacks (flashloans)
-- special contract
+For smart contracts, it could mean:
+
+\begin{itemize}
+\item{taking advantage of callbacks to run malicious code}
+\item{using factory contracts to deploy evil variants}
+\end{itemize}
+
+The more complex the protocol, the more facilities they will offer for attackers.
 
 \subsection{Evasion Targets}
 
-Pattern matching on the bytecode.
+Potentially, this category of evasion could bypass many layers of defense:
+since a significant part of the exploitation runs in legitimate contracts, their authority will most likely escape detection.
 
-\subsection{Samples}
-
-\subsubsection{Executing Raw Bytecode}
+\subsection{POC}
 
 \subsection{Detection \& Countermeasures}

@@ -19,12 +19,16 @@ Then it triggers legitimate code in simulation contexts and malicious code on th
 
 \subsection{Evasion Targets}
 
-\begin{description}
-\item[tests]{wallets often perform a simulation of the transaction before committing}
-\item[tools]{automatic tools may not go further than basic dynamic analysis}
-\end{description}
+\subsubsection{Wallets}
 
-On the other hand it is rather obvious when reviewing the code.
+Wallets often  perform a simulation of the transaction before committing.
+
+\subsubsection{Security Tools}
+
+Automatic tools will likely not fuzz the coinbase or other global variables.
+So the dynamic analysis may follow the "harmless" branch and not inspect the actual behavior of the contract on the mainnet.
+
+On the other hand stand  out when reviewing the code.
 
 \subsection{Samples}
 
