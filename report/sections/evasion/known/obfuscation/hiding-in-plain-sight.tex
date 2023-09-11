@@ -12,11 +12,15 @@ This technique is the most basic: it is often used in combination with other eva
 
 \subsection{Evasion Targets}
 
-\begin{description}
-\item[users]{wallets often perform a simulation of the transaction before committing}
-\item[reviewers]{the goal is to overwhelm auditors with the sheer volume of code}
-\item[tools]{unrelated data also lowers the efficiency of ML algorithms}
-\end{description}
+\subsubsection{Code Reviewers}
+
+A single line can compromise the whole codebase, so the reviewing process is very laborious and slow.
+Attackers stuff the code to overwhelm security auditors with the sheer volume of code.
+
+\subsubsection{Security Tools}
+
+Unrelated data also lowers the efficiency of ML algorithms:
+adding valid code will increase the chances of the contract to be classified as harmless.
 
 \subsection{Samples}
 
@@ -34,7 +38,21 @@ function transferOwnership(address newOwner) public virtual {
 
 \subsection{Detection \& Countermeasures}
 
-\begin{description}
-\item[bytecode]{the size of the bytecode is a low signal}
-\item[tracing]{the proportion of the code actually used can be computed by replaying transactions}
-\end{description}
+\subsubsection{Bytecode}
+
+The size of the bytecode is a low signal, but:
+
+\begin{itemize}
+\item{it is easy to detect, with certainty}
+\item{the codebase is always large when this technique is used}
+\item{not all contracts are bulky, some can be filtered out}
+\end{itemize}
+
+The tricky part is to choose a relevant threshold on the size of the code.
+
+\subsubsection{Execution Traces}
+
+The proportion of the code actually used can be computed by replaying transactions.
+
+It is important to \emph{replay the past transactions} and \textbf{not} perform new tests.
+Indeed, testing all the functions would skew the statistics on mainnet usage.

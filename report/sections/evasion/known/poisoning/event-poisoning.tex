@@ -2,31 +2,41 @@
 
 \subsection{Overview}
 
-By setting the amount to 0, it is possible to trigger \lstinline[language=Solidity]{Transfer} events from any ERC20 contracts.
+Events have the underlying implication that some change happened and the blockchain state evolved.
 
-In particular, scammers  bait users by coupling two transfers:
+It is actually possible to trigger events without their side effects.
+For instance, by setting the amount to 0 on the ERC20 \lstinline[language=Solidity]{tranfer} it is possible to trigger \lstinline[language=Solidity]{Transfer} events without moving any token!
+
+Actually, all standards and events could potentially be hijacked.
+
+\subsection{Evasion Targets}
+
+\subsubsection{Users}
+
+Many users don't double check events, especially not when they come from well-known tokens / contracts.
+
+\subsection{Samples}
+
+In \href{https://explorer.phalcon.xyz/tx/polygon/0x8a5f75338bfbf78b0969cdf5bacfe24c65e703ea94b430c470193b3d2a094441?line=1}{this batch transaction}, the scammer pretended to send USDC, DAI and USDT to 12 addresses.
+The attacker baited users by coupling two transfers:
 
 \begin{itemize}
 \item{a transfer of 0 amount of a popular token, say USDT}
 \item{a transfer of a small amount of a fake token, with the same name and symbol}
 \end{itemize}
 
-\subsection{Evasion Targets}
-
-\begin{description}
-\item[users]{many users don't double check events coming from well-known tokens}
-\end{description}
-
-\subsection{Samples}
-
-In \href{https://explorer.phalcon.xyz/tx/polygon/0x8a5f75338bfbf78b0969cdf5bacfe24c65e703ea94b430c470193b3d2a094441?line=1}{this batch transaction}, the scammer pretended to send USDC, DAI and USDT to 12 addresses.
-
-The Forta network \href{https://explorer.forta.network/alert/0x51add5ade0777f3fd65efb97ea0055aa6a5329bcfa8266e11c9de28da81896d7}{detected the transfer events of null amount}.
+The Forta network \href{https://explorer.forta.network/alerts?limit=20&sort=desc&text=&txHash=0x8a5f75338bfbf78b0969cdf5bacfe24c65e703ea94b430c470193b3d2a094441}{detected the transfer events of null amount}.
 
 \subsection{Detection \& Countermeasures}
 
-These scams are easily uncovered:
+\subsubsection{Event Logs}
 
-\begin{description}
-\item[logs]{the transactions logs contain the lsit of events, whose amounts can be parsed}
-\end{description}
+These scams are easily uncovered by parsing the transaction logs.
+They contain the list of events, with arguments that specify what happened.
+
+The idea is to define constraints on the arguments of all the standard events.
+For example, valid ERC20 \lstinline{Transfer} events would have a constraint \emph{strictly greater than zero} on the \lstinline{amount} argument.
+
+Then these constraints would be checked on the live transactions.
+
+Ideally, these checks should be performed beforehand, by the contracts behind the event emission.

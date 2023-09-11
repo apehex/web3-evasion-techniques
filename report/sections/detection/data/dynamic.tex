@@ -9,10 +9,10 @@ First, the execution can be monitored on the blockchain nodes, with the actual l
 
 \subsubsection{Transaction Origin}
 
-Just like the the contract's creator, every address the contract interacts with can be indexed.
-This way, one suspicious occurrence can be correlated with others to increase the accuracy.
+The records on the blockchain show every address that interacted with a given contract.
+Just like the contract's creator, these addresses can be saved and used to correlate different events on the blockchain.
 
-Again, the attackers can answer with lateral movement.
+Again, the attackers can answer with lateral movement: new EOAs, new contract instances.
 
 \subsubsection{Transaction Recipient}
 
@@ -83,4 +83,4 @@ token holders, exchange rates, administrative privileges, etc.
 Because of the way data is \href{\urldocsstoragelayout}{encoded and positioned in the storage slots}, there is no way to tell which slots are used without context.
 This context can come from the transaction history or local debugging.
 
-In any case the storage is stealthy by design.
+In any case, the design of the storage makes it stealthy.

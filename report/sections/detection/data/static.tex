@@ -25,9 +25,21 @@ The product of the gas price and gas used gives the cost of the smart contract d
 This gas consumption is directly related to the intensity of the processing involved.
 The historical data can be compared to a local replay to determine if all the operations are accounted for in the deployment code.
 
-\subsection{Bytecode}
+\subsection{Compilation Metadata}
 
 Similarly to the traditional binaries, smart contracts are compiled into bytecode.
+The context of the compilation is described in \href{\urldocssoliditymetadata}{a JSON file}. 
+
+The hash of these metadata may be appended to the bytecode of the contract:
+this hash is actually an ID, which can be used to retrieve the metadata and possibly the sources from a IPFS.
+
+The settings used by the compiler are listed in the metadata.
+In particular, the configuration of the optimizer is specified: the exact binary output of the compilation will vary according to these settings.
+When looking for patterns in the bytecode, these informations can be used to adapt the patterns.
+
+\subsection{Bytecode}
+
+The main product of the compilation is the bytecode deployed on the mainnet.
 It has several sections which can be parsed: OpenZeppelin wrote an in-depth article on the \href{\urldiagrambytecode}{structure of smart contract bytecode}.
 
 In itself, providing only the bytecode (and not the sources) is already a layer of obfuscation.

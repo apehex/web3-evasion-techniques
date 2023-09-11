@@ -21,14 +21,15 @@ Then it triggers legitimate code in simulation contexts and malicious code on th
 
 \subsubsection{Wallets}
 
-Wallets often  perform a simulation of the transaction before committing.
+Wallets often perform a simulation of the transaction before committing.
+The whole point of this method is to pass these tests and bait the end-user.
 
 \subsubsection{Security Tools}
 
 Automatic tools will likely not fuzz the coinbase or other global variables.
 So the dynamic analysis may follow the "harmless" branch and not inspect the actual behavior of the contract on the mainnet.
 
-On the other hand stand  out when reviewing the code.
+On the other hand these unusual checks stand out when reviewing the code.
 
 \subsection{Samples}
 
