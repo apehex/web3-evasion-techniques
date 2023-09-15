@@ -1,23 +1,38 @@
-\section{Hidden Proxy}
+\section{Hidden Proxy} \label{sec:hidden-proxy}
 
 \subsection{Overview}
 
-Here, the contract advertises functionalities through its sources but actually redirects to another contract.
+Hidden proxies redirect the execution to another contract just like standard proxies, except that they pretend not to.
 
-One common way to achieve this is to performs \lstinline{delegateCall} on any unknown selector, via the fallback.
+Apart from this redirection trick, the rest of the contract code can be anything: a token, ERC-1967 proxy, etc.
+There are two cases:
 
-The exposed functionalities are not meaningful, the logic is located at a seemingly unrelated \& hidden address.
+\begin{itemize}
+\item{the contract inherits from a reference proxy contract: the expected implementation will serve as a bait and another logic contract is used in practice}
+\item{otherwise the delegate contract adds hidden functionalities, like a backdoor}
+\end{itemize}
+
+Just like proxies, a common way to achieve this is to performs \lstinline{delegateCall} on any unknown selector, via the fallback function.
+In its simplest form, the fallback would just use another address for the logic contract.
+More sophiscated attackers will chain proxies or combine this trick with other evasion techniques like \ref{sec:overriding-implementation}.
 
 The target address can be hardcoded or passed as an argument, making it stealthier.
 
 \subsection{Evasion Targets}
 
-This technique stacks another layer of evasion on top those mentioned in \ref{sec:hiding-in-plain-sight}:
+This technique stacks another layer of evasion on top those mentioned in \ref{sec:hiding-in-plain-sight}.
 
-\begin{description}
-\item[tools]{testing visible code does not bring out the malicious part}
-\item[reviewers]{the proxy address may not even be in the byte / source code}
-\end{description}
+\subsubsection{Block Explorers}
+
+Block explorers can detect standard proxy patterns and show the corresponding implementation contract.
+In this context, the shown implementation is not used and the explorers are actually misinforming their users.
+
+\subsubsection{Security Tools}
+
+The malicious code is not directly accessible and the tools may end up analysing the legitimate implementation instead.
+
+The actual logic address can be obfuscated or even missing from the bytecode.
+Transaction tracing is the most reliable inspection tool in this case, and it is not always available.
 
 \subsection{Samples}
 
@@ -35,10 +50,12 @@ fallback () external {
 
 \subsection{Detection \& Countermeasures}
 
-In addition to the sources \& indicators mentioned in \ref{sec:hiding-in-plain-sight}:
+This attack scheme will most likely involve masquerading code: the indicators mentioned in \ref{sec:hiding-in-plain-sight} provide a basis for the detection.
 
-\begin{description}
-\item[history]{the hidden proxy address can be found in the trace logs}
-\item[upgrades]{replaying transactions before / after upgrades may show significant differences}
-\end{description}
+\subsubsection{Tracing}
 
+The address of the hidden implementation can be found in the trace logs.
+
+\subsubsection{Transaction History}
+
+Comparing the results of transactions over time may show significant differences and highlight a change in implementation.
