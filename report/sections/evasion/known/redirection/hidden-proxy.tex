@@ -40,17 +40,20 @@ A malicious fallback can be inserted into an expensive codebase:
 
 \begin{lstlisting}[language=Solidity]
 fallback () external {
-	if (msg.sender == owner()) {
-		(bool success, bytes memory data) = address(0x25B072502FB398eb4f428D60D01f18e8Ffa01448).delegateCall(
-			msg.data
-		);
-	}
+    if (msg.sender == owner()) {
+        (bool success, bytes memory data) = address(0x25B072502FB398eb4f428D60D01f18e8Ffa01448).delegateCall(
+            msg.data
+        );
+    }
 }
 \end{lstlisting}
 
 \subsection{Detection \& Countermeasures}
 
 This attack scheme will most likely involve masquerading code: the indicators mentioned in \ref{sec:hiding-in-plain-sight} provide a basis for the detection.
+
+\hspace*{-1.5cm}
+\input{sections/evasion/known/redirection/figures/hidden-proxy-diagram}
 
 \subsubsection{Tracing}
 

@@ -1,61 +1,7 @@
+\hspace*{-1.5cm}
 \begin{figure}[p]
 \centering
-\begin{tikzpicture}[
-text=white,
-mindmap,
-every node/.style={concept},
-level 1/.append style={level distance=5cm, sibling angle=180},
-level 2/.append style={level distance=3cm, sibling angle=60},
-level 3/.append style={level distance=2cm, sibling angle=60}]
-\node[concept color=black, text=white] {Malicious smart contracts}
-    child[concept color=green, text=black, grow=120] {node {Analysis}
-        child[concept color=green, text=black, grow=0] {node {Static}
-            child[grow=-60] {node {Creation Metadata}}
-            child[grow=0] {node {Bytecode}}
-            child[grow=60] {node {Source code}}
-        }
-        child[concept color=green!80!white, text=black, grow=90] {node {Dynamic}
-            child[grow=0] {node {Execution Metadata}}
-            child[grow=60] {node {Event Logs}}
-            child[grow=120] {node {Execution Traces}}
-            child[grow=180] {node {State Changes}}
-        }
-        child[concept color=green!60!white, text=black, grow=200] {node {Hybrid}
-            child[grow=120] {node {Statistics}}
-            child[grow=180] {node {Graph Theory}}
-            child[grow=240] {node {Symbolic Analysis}}
-            child[grow=300] {node {Machine Learning}}
-        }
-    }
-    child[concept color=red, text=black, grow=300] {node {Evasion}
-        child[concept color=red, text=black, grow=180] {node {Spoofing}
-            child {node {Faking Stds}}
-            child {node {Overriding Stds}}
-            child {node {Bug Exploits}}
-            child {node {Sybils}}
-        }
-        child[concept color=red!80!black, text=white, grow=240] {node {Morphing}
-            child {node {Lateral Movements}}
-            child {node {Red Pill}}
-            child {node {Logic Bomb}}
-        }
-        child[concept color=red!60!black, text=white, grow=300] {node {Poisoning}
-            child {node {Event Poisoning}}
-            child {node {Sleep Minting}}
-            child {node {Living Off The Land}}
-        }
-        child[concept color=red!40!black, text=white, grow=0] {node {Obfuscation}
-            child {node {Hiding In Plain Sight}}
-            child {node {Hiding Behind Proxies}}
-            child {node {Hidden State}}
-            child {node {Packing}}
-        }
-        child[concept color=red!20!black, text=white, grow=60] {node {Redirection}
-            child {node {Hidden Proxy}}
-            child {node {Selector Collisions}}
-        }
-    };
-\end{tikzpicture}
+\input{sections/detection/taxonomy/figures/diagram.tex}
 \caption{Taxonomy of the detection \& evasion techniques}
 \label{fig:taxonomy}
 \end{figure}

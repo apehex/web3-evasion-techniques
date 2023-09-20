@@ -1,0 +1,30 @@
+\begin{tikzpicture}
+
+\node (metadata) [io] {Transaction metadata};
+\node (known) [decision, below=1cm of metadata] {Known?};
+\node (outdated) [decision, below right=1cm of known] {Outdated?};
+
+\node (request) [block, below left=1cm of known] {Request bytecode};
+\node (bytecode) [io, below=1cm of request] {Bytecode};
+\node (contract) [decision, below=1cm of bytecode] {Contract?};
+\node (empty) [io, left=2cm of contract] {Empty};
+\node (disassemble) [block, below=1cm of contract] {Disassemble};
+\node (decode) [block, below=1cm of disassemble] {Decode};
+
+\node (abi) [io, below=1cm of decode] {ABI, opcodes};
+
+\node[container, fit=(known) (request) (outdated) (decode), inner xsep=12mm]{Preprocess};
+
+\draw [arrow] (metadata) -- (known);
+\draw [arrow] (known) -| node[label, near start, above] {no} (request);
+\draw [arrow] (known) -| node[label, near start, above] {yes} (outdated);
+\draw [arrow] (outdated) -- node[label, near start, above] {yes} (request);
+\draw [arrow] (outdated) |- node[label, near start, right] {no} (abi);
+\draw [arrow] (request) -- (bytecode);
+\draw [arrow] (bytecode) -- (contract);
+\draw [arrow] (contract) -- node[label, near start, right] {yes} (disassemble);
+\draw [arrow] (contract) -- node[label, near start, above] {no} (empty);
+\draw [arrow] (disassemble) -- (decode);
+\draw [arrow] (decode) -- (abi);
+
+\end{tikzpicture}

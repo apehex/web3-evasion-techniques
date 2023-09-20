@@ -1,0 +1,36 @@
+\documentclass[11pt,fleqn,oneside]{book}
+
+\newcommand{\AUTHOR}{Forta Community}
+\newcommand{\CLIENT}{Forta}
+\newcommand{\DATE}{31/08/2023}
+\newcommand{\VERSION}{1.0.1}
+\newcommand{\TITLE}{Figures}
+\newcommand{\SUBTITLE}{Detection Algorithms}
+\newcommand{\SUBJECT}{Web3}
+
+\input{template/book/main}
+
+\begin{document}
+\pagestyle{empty}
+
+\backgroundbarvisiblefalse
+\backgroundtitlevisiblefalse
+\newgeometry{left=0cm,top=0cm,right=0cm,bottom=0cm}
+
+% =======================================================================================
+%                                   DARK THEME
+% =======================================================================================
+
+% TAXONOMY ------------------------------------------------------------------------------
+\input{sections/detection/taxonomy/figures/diagram}
+% PREPROCESSING -------------------------------------------------------------------------
+\newpage\input{sections/appendices/figures/preprocessing-diagram}
+% HIDDEN PROXY --------------------------------------------------------------------------
+\newpage\input{sections/evasion/known/redirection/figures/hidden-proxy-diagram}
+% ---------------------------------------------------------------------------------------
+
+% =======================================================================================
+%                                   LIGHT THEME
+% =======================================================================================
+
+\end{document}

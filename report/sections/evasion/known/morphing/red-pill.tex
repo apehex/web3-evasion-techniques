@@ -33,7 +33,7 @@ On the other hand these unusual checks stand out when reviewing the code.
 
 \subsection{Samples}
 
-The contract \lstinline{FakeWethGiveaway} mentioned in \cite{article-red-pill} checks the current block miner’s address:
+The contract \lstinline{FakeWethGiveaway} mentioned in \href{\urlarticleredpill}{the Zengo article} checks the current block miner’s address:
 
 \begin{lstlisting}[language=Solidity]
 function checkCoinbase() private view returns (bool result) {
@@ -56,7 +56,10 @@ Otherwise, on the mainnet, it just accepts transfers without doing anything.
 
 \subsection{Detection \& Countermeasures}
 
-\begin{description}
-\item[opcodes]{looking for unusual opcodes: typically \lstinline[language=Solidity]{block.coinbase}}
-\item[fuzzing]{the transactions can be tested with blank data and compared with results behavior on data}
-\end{description}
+\subsubsection{Bytecode}
+
+The bytecode can be disassembled and scanned for unusual opcodes: typically \lstinline[language=Solidity]{block.coinbase}.
+
+\subsubsection{fuzzing}
+
+The transactions can be tested with blank data and compared with the historic transactions.
