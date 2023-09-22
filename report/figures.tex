@@ -25,9 +25,42 @@
 \input{sections/detection/taxonomy/figures/diagram}
 % PREPROCESSING -------------------------------------------------------------------------
 \newpage\input{sections/appendices/figures/preprocessing-diagram}
+% EVENT POISONING -----------------------------------------------------------------------
+\newpage\input{sections/evasion/known/poisoning/figures/event-poisoning/scan}
 % HIDDEN PROXY --------------------------------------------------------------------------
-\newpage\input{sections/evasion/known/redirection/figures/hidden-proxy-diagram}
+\newpage\input{sections/evasion/known/redirection/figures/hidden-proxy/scan}
 % ---------------------------------------------------------------------------------------
+\newpage
+\begin{tikzpicture}
+
+% Parameters for outer and inner radii
+\newcommand{\outerradius}{2cm}
+\newcommand{\innerradius}{0.5cm}
+\newcommand{\thickness}{0.2cm} % thickness of each branch
+
+% Draw 5 branches
+\foreach \i in {1,2,...,5} {
+    \pgfmathsetmacro{\angle}{\i*360/5}
+    \pgfmathsetmacro{\nextangle}{(\i+1)*360/5}
+    \pgfmathsetmacro{\midangle}{(\angle + \nextangle)/2}
+
+    % Coordinates for outer and inner points
+    \coordinate (outer) at (\angle:\outerradius);
+    \coordinate (inner) at (\angle:\innerradius);
+    \coordinate (nextouter) at (\nextangle:\outerradius);
+
+    % Coordinates for the sides of the thick branches
+    \coordinate (side1) at ({\angle+\thickness}:\innerradius);
+    \coordinate (side2) at ({\angle-\thickness}:\innerradius);
+    \coordinate (nextside1) at ({\nextangle+\thickness}:\innerradius);
+    \coordinate (nextside2) at ({\nextangle-\thickness}:\innerradius);
+
+    % Draw the polygons for each branch
+    \draw[fill=black] (0,0) -- (side1) -- (outer) -- (nextside1) -- cycle;
+    \draw[fill=black] (0,0) -- (side2) -- (outer) -- (nextside2) -- cycle;
+}
+
+\end{tikzpicture}
 
 % =======================================================================================
 %                                   LIGHT THEME

@@ -52,13 +52,39 @@ fallback () external {
 
 This attack scheme will most likely involve masquerading code: the indicators mentioned in \ref{sec:hiding-in-plain-sight} provide a basis for the detection.
 
+\subsubsection{Overall process}
+
 \hspace*{-1.5cm}
-\input{sections/evasion/known/redirection/figures/hidden-proxy-diagram}
+\input{sections/evasion/known/redirection/figures/hidden-proxy/scan}
 
-\subsubsection{Tracing}
+This scheme is restricted to two subclasses of the hidden-proxies: standard proxies that don't follow the specifications and tokens that act as proxies.
+It can be extended and improved upon.
 
-The address of the hidden implementation can be found in the trace logs.
+\subsubsection{Delegation}
 
-\subsubsection{Transaction History}
+Delegation can be detected by comparing the selector from the transaction data with contract's interface.
 
-Comparing the results of transactions over time may show significant differences and highlight a change in implementation.
+The contract's interface itself can be extracted from the bytecode, in the hub section of the contract.
+
+\subsubsection{Standard Proxy \& Token}
+
+Once the interface is extracted from the bytecode, it can be compared with known interfaces.
+In particular tokens and proxies have well-known and constant interfaces.
+
+\subsubsection{Implementation addresses}
+
+The implementation address can be retrieved from the storage of standard addresses.
+It is stored at a fixed slot for each standard:
+
+\begin{lstlisting}[language=Python]
+LOGIC_SLOTS = {
+    # bytes32(uint256(keccak256('eip1967.proxy.implementation')) - 1)
+    'erc-1967': '360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc',
+    # keccak256("org.zeppelinos.proxy.implementation")
+    'zeppelinos': '7050c9e0f4ca769c69bd3a8ef740bc37934f8e2c036e5a723fd8ee048ed3f8c3',
+    # keccak256("PROXIABLE")
+    'erc-1822': 'c5f16f0fcc639fa48a6947836d9850f504798523bf8c9a3a87d5876cf622bcf7',}
+\end{lstlisting}
+
+The address to which the transaction call was redirected can be identified in the traces.
+Or it can be parsed from the bytecode and / or the transaction data depending on the logic of the contract.

@@ -1,0 +1,46 @@
+\begin{tikzpicture}
+
+% \node (metadata)    [io] {Transaction metadata};
+% \node (preprocess)  [block, below=1cm of metadata] {Preprocess};
+\node (abi)         [io] {ABI, opcodes, selector}; % below=1cm of preprocess
+
+\node (delegation) [decision, below=1cm of abi] {Delegation?};
+\node (proxy) [decision, below=1cm of delegation] {Std. proxy?};
+\node (logic) [block, below=1cm of proxy] {Extract standard addresses};
+\node (called) [block, below=1cm of logic] {Extract called address};
+\node (match) [decision, below=1cm of called] {Match?};
+\node (positive) [io, below=2cm of match] {1};
+
+\node (negative) [io, right=3cm of delegation] {0};
+
+\node (token) [decision, left=2cm of proxy] {Token?};
+\node (unknown) [io, left=3cm of token] {0.5};
+\node (almost) [io, below=8.2cm of token] {0.9};
+
+\node (c1) [container, fit=(delegation) (match) (token), inner xsep=22mm, inner ysep=8mm, xshift=2mm, yshift=-4mm] {};
+\node (t1) [text centered, text=white, above=-1.5cm of c1, xshift=-4cm] {Hidden proxy?};
+
+\node (c2) [container, fit=(unknown)] {};
+\node (t2) [text centered, text=white, above=2mm of c2] {Unknown};
+
+\node (c3) [container, fit=(almost) (positive)] {};
+\node (t3) [text centered, text=white, above=-1cm of c3] {Positive};
+
+\node (c4) [container, fit=(negative)]{};
+\node (t4) [text centered, text=white, above=2mm of c4] {Negative};
+
+% \draw [arrow] (metadata) -- (preprocess);
+% \draw [arrow] (preprocess) -- (abi);
+\draw [arrow] (abi) -- (delegation);
+\draw [arrow] (delegation) -- node[label, near start, right] {yes, 0.5} (proxy);
+\draw [arrow] (delegation) -- node[label, near start, above] {no, 0} (negative);
+\draw [arrow] (proxy) -- node[label, near start, right] {yes, 0.5} (logic);
+\draw [arrow] (proxy) -- node[label, near start, above] {no, 0.5} (token);
+\draw [arrow] (logic) -- (called);
+\draw [arrow] (called) -- (match);
+\draw [arrow] (token) --  node[label, near start, above] {no, 0.5} (unknown);
+\draw [arrow] (token) --  node[label, near start, left] {yes, 0.9} (almost);
+\draw [arrow] (match) -| node[label, near start, above] {yes, 0} (negative);
+\draw [arrow] (match) -- node[label, near start, right] {no, 1} (positive);
+
+\end{tikzpicture}
