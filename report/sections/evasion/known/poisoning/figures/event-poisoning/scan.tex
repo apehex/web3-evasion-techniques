@@ -30,7 +30,7 @@
 \node (c4) [container, fit=(references) (rules)] {};
 
 \node (c0) [container, fit=(log-topics) (c1) (c2) (check-constraints), inner ysep=6mm, yshift=-2mm] {};
-\node (t0) [text centered, text=white, above=2mm of c0, xshift=-4cm] {Event poisoning?};
+\node (t0) [label, above=2mm of c0, xshift=-4cm] {Event poisoning?};
 
 \draw [arrow] (logs) -- (log-topics);
 \draw [arrow] (log-topics) -| (parse-selector);

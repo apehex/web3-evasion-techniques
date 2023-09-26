@@ -18,16 +18,16 @@
 \node (almost) [io, below=8.2cm of token] {0.9};
 
 \node (c1) [container, fit=(delegation) (match) (token), inner xsep=22mm, inner ysep=8mm, xshift=2mm, yshift=-4mm] {};
-\node (t1) [text centered, text=white, above=-1.5cm of c1, xshift=-4cm] {Hidden proxy?};
+\node (t1) [label, above=-1.5cm of c1, xshift=-4cm] {Hidden proxy?};
 
 \node (c2) [container, fit=(unknown)] {};
-\node (t2) [text centered, text=white, above=2mm of c2] {Unknown};
+\node (t2) [label, above=2mm of c2] {Unknown};
 
 \node (c3) [container, fit=(almost) (positive)] {};
-\node (t3) [text centered, text=white, above=-1cm of c3] {Positive};
+\node (t3) [label, above=-1cm of c3] {Positive};
 
 \node (c4) [container, fit=(negative)]{};
-\node (t4) [text centered, text=white, above=2mm of c4] {Negative};
+\node (t4) [label, above=2mm of c4] {Negative};
 
 % \draw [arrow] (metadata) -- (preprocess);
 % \draw [arrow] (preprocess) -- (abi);
