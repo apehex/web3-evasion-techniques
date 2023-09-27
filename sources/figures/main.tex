@@ -20,7 +20,15 @@
 % LOGO ----------------------------------------------------------------------------------
 \newpage\section{Logo}
 \begin{tikzpicture}
-    \drawfortalogo{0}{0}{4}{28}{8}{36}{very thick, densely dotted}
+\foreach \i [evaluate=\i as \Ox using {-0.1 * \i},
+            evaluate=\i as \Oy using {0},
+            evaluate=\i as \R using {4 + 0.4 * \i},
+            evaluate=\i as \Tilt using {36 + 0.5 * \i},
+            evaluate=\i as \percent using {100-\i*5} % convert i to a percentage
+           ] in {0,...,20} {
+    \drawfortalogo{\Ox}{\Oy}{\R}{28}{8}{\Tilt}{very thick, densely dotted, draw=gray!\percent!black}
+}
+
 \end{tikzpicture}
 
 \end{document}
