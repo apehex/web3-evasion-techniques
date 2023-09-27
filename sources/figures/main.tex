@@ -20,14 +20,7 @@
 % LOGO ----------------------------------------------------------------------------------
 \newpage\section{Logo}
 \begin{tikzpicture}
-    % Drawing a pentagon for visualization
-    \draw[gray] (0,0) circle (2cm);
-    \draw \pentagonvertex{0}{0}{2}{0}{0} -- \pentagonvertex{0}{0}{2}{0}{1} -- \pentagonvertex{0}{0}{2}{0}{2} -- \pentagonvertex{0}{0}{2}{0}{3} -- \pentagonvertex{0}{0}{2}{0}{4} -- cycle;
-    
-    % Fill vertex 0
-    \fill[red] \pentagonvertex{0}{0}{2}{0}{0} circle (2pt);
-    % Fill vertex 1 with a tilt of 20 degrees
-    \fill[blue] \pentagonvertex{0}{0}{2}{20}{1} circle (2pt);
+    \drawfortalogo{0}{0}{4}{28}{8}{36}{very thick, densely dotted}
 \end{tikzpicture}
 
 \end{document}
