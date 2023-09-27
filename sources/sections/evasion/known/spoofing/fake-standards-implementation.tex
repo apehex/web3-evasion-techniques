@@ -27,7 +27,7 @@ In particular, slot number \lstinline{0x360894a13ba1a3210667c828492db98dca3e2076
 
 These pointers can be kept null or target a random contract, while the proxy actually uses another address.
 
-A minimal example was given at DEFI summit 2023 \cite{video-masquerading-code}:
+A minimal example was given at \href{\urlvideomasqueradingcode}{DEFI summit 2023}:
 
 \begin{lstlisting}[language=Solidity]
 function _getImplementation() internal view returns (address) {
@@ -45,7 +45,7 @@ Etherscan will show some irrelevant contract, giving the impression it is legit.
 
 Many phishing operations deploy fake tokens with the same symbol and name as the popular ones.
 
-For example, \href{https://etherscan.io/address/0x5ed7ca349efc40550eecef4b288158fb2b9f12de#code}{this contract} is spoofing the USDC token.
+For example, \href{https://etherscan.io/address/0x5ed7ca349efc40550eecef4b288158fb2b9f12de}{this contract} is spoofing the USDC token.
 It was used in \href{https://explorer.phalcon.xyz/tx/eth/0x7448178a8a03a0f1f298b697507f0e9172eacf1d32d422f48d0345c19c76eba3?line=33}{this phishing transaction}.
 
 \subsection{Detection \& Countermeasures}
