@@ -5,6 +5,7 @@
     % #4 - date
     % #5 - subject
     \pagestyle{empty}
+    \newgeometry{left=0cm,top=0cm,right=0cm,bottom=0cm}
 
     \begin{tikzpicture}[remember picture,overlay]
 
@@ -42,4 +43,5 @@
     \drawhexagon{\Large #5}{$(current page.west)+(2.5,-5)$}{2.5 cm}{0}{accent!60,draw,text=fg};
 
     \end{tikzpicture}
+    \restoregeometry
 }
