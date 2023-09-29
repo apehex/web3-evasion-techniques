@@ -4,6 +4,7 @@
 *.bcf
 *.bib
 *.blg
+*.fls
 *.idx
 *.log
 *.ptc
