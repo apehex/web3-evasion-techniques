@@ -14,7 +14,7 @@ There are two cases:
 
 Just like proxies, a common way to achieve this is to performs \lstinline{delegateCall} on any unknown selector, via the fallback function.
 In its simplest form, the fallback would just use another address for the logic contract.
-More sophiscated attackers will chain proxies or combine this trick with other evasion techniques like \ref{sec:overriding-implementation}.
+More sophiscated attackers will chain proxies or combine this trick with other evasion techniques like \ref{sec:variable-shadowing}.
 
 The target address can be hardcoded or passed as an argument, making it stealthier.
 

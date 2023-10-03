@@ -6,36 +6,35 @@ In this first context, the detection methods are called "static analysis".
 \subsection{Creation Metadata}
 
 The block and transaction objects hold a lot of data related to the infrastructure of the blockchain.
-These informations, like \lstinline[language=Solidity]{block.difficulty} or \lstinline[language=Solidity]{block.gaslimit}, can be ignored when considering the smart contracts.
+These informations, like \lstinline[language=Solidity]{block.difficulty} or \lstinline[language=Solidity]{block.gaslimit}, can be safely ignored when considering the smart contracts.
 
 Other details like the contract's creator, the balance, the creation timestamp and associated Ether provide a context to the whole analysis.
 
 \subsubsection{Contract's creator}
 
-The values \lstinline[language=Solidity]{msg.sender} \& \lstinline[language=Solidity]{tx.origin} of the transaction that created the contract tell us who did it!
-
-This would be like having an IP: the addresses can be indexed to follow the activity of known attackers.
+The values \lstinline[language=Solidity]{msg.sender} \& \lstinline[language=Solidity]{tx.origin} of the transaction that created the contract tell us who did it.
+It is like having an IP: the addresses can be indexed to follow the activity of known attackers.
 
 In turn, bad actors can simply use new "external owned accounts" (EOA) and redeploy / upgrade their contracts.
 
 \subsubsection{Creation Cost}
 
 The product of the gas price and gas used gives the cost of the smart contract deployment.
+This gas consumption is related to the intensity of the processing involved.
 
-This gas consumption is directly related to the intensity of the processing involved.
-The historical data can be compared to a local replay to determine if all the operations are accounted for in the deployment code.
+EVM operation costs have a wide range and some key operations are especially pricy.
+Contract activity can be differentiated based on this value: it is a built-in high level profiling tool.
 
 \subsection{Compilation Metadata}
 
-Similarly to the traditional binaries, smart contracts are compiled into bytecode.
-The context of the compilation is described in \href{\urldocssoliditymetadata}{a JSON file}. 
+Similarly to traditional binaries, smart contracts are compiled into bytecode.
+The settings used during the compilation are described in \href{\urldocssoliditymetadata}{a JSON file}.
 
-The hash of these metadata may be appended to the bytecode of the contract:
-this hash is actually an ID, which can be used to retrieve the metadata and possibly the sources from a IPFS.
+The hash of these metadata may be appended to the bytecode:
+it is actually an ID, which can be used to retrieve the metadata and possibly the sources from a IPFS.
 
-The settings used by the compiler are listed in the metadata.
 In particular, the configuration of the optimizer is specified: the exact binary output of the compilation will vary according to these settings.
-When looking for patterns in the bytecode, these informations can be used to adapt the patterns.
+These informations can be used to adapt static analysis patterns to a specific target.
 
 \subsection{Bytecode}
 
@@ -80,18 +79,16 @@ So it can be found in the data of the \href{https://etherscan.io/tx/0xd66169d4a5
 Or in the source code, if provided (discussed below).
 
 The constructor sets storage slots, which hold values that can totally change the behavior of the contract.
-Admin privileges can at as a backdoor and enable rug pulls for example.
+Admin privileges can act as a backdoor and enable rug pulls for example.
 
 Attackers will try and sneak data into the contract's state.
 
 \subsubsection{Opcode Sequence}
 
 \href{\urlcodeevmdasm}{Bytecode can be interpreted as a language}, giving a level of abstraction to the analysis.
-
 Indeed, different hex bytecodes can achieve the same result.
 It is easier to get the high level logic from the sequences of opcodes than from raw and specific hex chunks.
 
-So the analysis mentioned above can be performed on opcodes, after disassembling the binary.
 But disassembling is not an exact science and it can be made even harder by classic techniques like \href{\urlpapereshield}{anti-patterns}.
 
 \subsection{Source code}
@@ -99,7 +96,7 @@ But disassembling is not an exact science and it can be made even harder by clas
 First, source code is not always available: the blockchain itself doesn't hold it, it has to be supplied to third party services, e.g. block explorers.
 
 With it, code review is humanly possible and reverse engineering becomes easier.
-Sources help significantly to understand new attacks, but are orders of magnitude too time consuming to provide live intelligence.
+Sources help to understand new attacks, but are too time consuming to provide live intelligence.
 
-Also, Solidity can be misleading because of the many ambiguities and \href{\urldocssoliditybugs}{bugs}.
+Solidity can be misleading because of its ambiguities and \href{\urldocssoliditybugs}{bugs}.
 Attackers will take advantage of the imprecision in the tools and the limited resources of human reviewers.

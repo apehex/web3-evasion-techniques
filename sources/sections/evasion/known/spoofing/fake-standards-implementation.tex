@@ -2,21 +2,26 @@
 
 \subsection{Overview}
 
-Such contracts borrows the function \& class names from industry standards(OpenZeppelin, ERC, etc), but the code inside is actually different.
+Such contracts borrow the function and class names from industry standards (OpenZeppelin, ERC, etc), but the code inside is actually different.
 
 The malicious contracts generally pretend to be:
 
-\begin{description}
-\item[proxies]{but the implementation is either not used or different from the ERC-1967 proxy}
-\item[tokens]{but the transfer and / or approve functions behave differently than ERC-20 / 721 / 1155}
-\end{description}
+\begin{itemize}
+\item{proxies: but the implementation is either not used or different from the ERC-1967 proxy}
+\item{tokens: but the functions behave differently than ERC-20 / 721 / 1155}
+\end{itemize}
+
+Most often, the code will be very close to correct and vary only on key aspects.
 
 \subsection{Evasion Targets}
 
-\begin{description}
-\item[block explorers]{the interpretation of proxies is fixed, it can easily be fooled}
-\item[users]{few users actually check the code, having a valid front is enough}
-\end{description}
+\subsubsection{Users}
+
+Few users actually check the code, so having a valid front is enough.
+
+\subsubsection{Block explorers}
+
+For now, block explorers have fixed models for proxies: they will show the address matching the ERC standards even if the contract actually uses another address.
 
 \subsection{Samples}
 
@@ -26,7 +31,6 @@ The \href{\urlstandardeipproxy}{standard EIP-1967} has pointers located in speci
 In particular, slot number \lstinline{0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc} holds the address of the logic contract.
 
 These pointers can be kept null or target a random contract, while the proxy actually uses another address.
-
 A minimal example was given at \href{\urlvideomasqueradingcode}{DEFI summit 2023}:
 
 \begin{lstlisting}[language=Solidity]
@@ -40,7 +44,6 @@ function _getImplementation() internal view returns (address) {
 
 Etherscan will show some irrelevant contract, giving the impression it is legit.
 
-\pagebreak
 \subsubsection{Fake ERC20 Token}
 
 Many phishing operations deploy fake tokens with the same symbol and name as the popular ones.
@@ -52,8 +55,8 @@ It was used in \href{https://explorer.phalcon.xyz/tx/eth/0x7448178a8a03a0f1f298b
 
 Several sources can be monitored, depending on the standard that is being spoofed:
 
-\begin{description}
-\item[Storage]{comparing the target of \lstinline[language=Solidity]{delegateCall} to the address in the storage slots of the standards}
-\item[Events]{changes to the address of the logic contract should come with an \lstinline[language=Solidity]{Upgraded} event}
-\item[Bytecode]{the implementation of known selectors can be checked agains the standard's reference bytecode}
-\end{description}
+\begin{itemize}
+\item{Storage: comparing the target of \lstinline[language=Solidity]{delegateCall} to the address in the ERC storage slots}
+\item{Events: changes to the address of the logic contract should come with an \lstinline[language=Solidity]{Upgraded} event}
+\item{Bytecode: the implementation of known selectors can be checked against the standard's reference bytecode}
+\end{itemize}

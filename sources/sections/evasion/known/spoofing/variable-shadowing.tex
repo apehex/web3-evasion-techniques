@@ -1,4 +1,4 @@
-\section{Overriding Standards Implementation} \label{sec:overriding-implementation}
+\section{Variable Shadowing} \label{sec:variable-shadowing}
 
 \subsection{Overview}
 
@@ -7,23 +7,26 @@ Like the previous technique \ref{sec:fake-implementation}, the goal is to have a
 It is achieved by inheriting from standardized code like \lstinline{Ownable}, \lstinline{Upgradeable}, etc.
 Then, the child class overwrites key elements with:
 
-\begin{description}
-\item[redefinition]{an existing keyword is defined a second time for the references in the child class only}
-\item[polymorphism]{an existing method can be redined with a slightly different signature}
-\end{description}
+\begin{itemize}
+\item{redefinition: a keyword is defined a second time for the child class only}
+\item{polymorphism: an existing method can be redined with a slightly different signature}
+\end{itemize}
 
 From the perspective of the source code, a single keyword like \lstinline{owner} can refer to different storage slot depending on its context.
-It is only in the bytecode that a clear difference is made.
+Only the bytecode makes a clear difference.
 
 \subsection{Evasion Targets}
 
 This technique is a refinment of the previous one: it will work on more targets.
 
-\begin{description}
-\item[block explorers]{blockchain explorers lack even more flexibility to detect these exploits}
-\item[users]{the source code is even closer to a legitimate contract}
-\item[reviewers]{the interpretation of the source code is subtle, and reviewing the bytecode is very time consuming}
-\end{description}
+\subsubsection{Users}
+
+The source code is even closer to a legitimate contract: even with a large userbase, it is likely to fly under the radar.
+
+\subsubsection{Reviewers}
+
+The interpretation of the source code is subtle, and reviewing the bytecode is very time consuming.
+So even people with the required skills may not have enough incentive to check the code in depth, outside of paid audits.
 
 \subsection{Samples}
 
@@ -59,3 +62,6 @@ While subtle for the human reader, tools can easily scan the sources for duplica
 
 Since the whole point is to advertize for a functionality with the sources, they will be available.
 However, the bytecode does not provide any information on this class of evasion.
+
+This is where static analysis tools like \href{\urlcodeslither}{Slither} shine.
+It has a \href{\urlcodeslithervariableshadowing}{specialized detector for keyword shadowing}.

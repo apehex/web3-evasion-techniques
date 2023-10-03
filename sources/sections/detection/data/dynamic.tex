@@ -55,15 +55,17 @@ Just like traditional malware, smart contracts have means to evade debugging: te
 
 \subsubsection{External Function Calls}
 
-A given smart contract can redirect the execution flow to external addresses.
-\lstinline[language=Solidity]{address.call} will segregate the contexts of the contracts, while \lstinline[language=Solidity]{address.delegatecall} allows the target contract to modify the state of the origin address.
+Smart contracts have many tools to reach third party addresses: transfers, function calls, \lstinline[language=Solidity]{selfdestruct}, etc.
+
+Function calls can be executed in the context of the recipient contract with \lstinline[language=Solidity]{address.call}.
+Or modify the state of the origin contract with \lstinline[language=Solidity]{address.delegatecall}.
 
 These external calls may be aimed at:
 
 \begin{itemize}
 \item{EOAs, for example to bait them into performing unsafe actions}
 \item{legitimate contracts, to loan, launder, exploit, etc}
-\item{malicious contracts, to split and layer the suspicious activity}
+\item{malicious contracts, to setup, split and layer the suspicious activity}
 \end{itemize}
 
 Splitting the logic over several contracts is a way to make local debugging harder too.
