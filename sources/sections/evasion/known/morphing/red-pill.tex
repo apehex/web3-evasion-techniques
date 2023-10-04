@@ -6,16 +6,15 @@ The red-pill technique detects simulation environment to disable its exploits up
 
 The contract detects simulation environments by checking:
 
-\begin{description}
-\item[globals]{these variables have special values in test environments:
+\begin{itemize}
+\item{global variables: these variables may have special values in test environments
 \begin{itemize}
     \item{\lstinline[language=Solidity]{block.basefee}: \lstinline{0}}
     \item{\lstinline[language=Solidity]{block.coinbase}: \lstinline{0x0000000000000000000000000000000000000000}}
     \item{\lstinline[language=Solidity]{tx.gasprice}: large numbers, higher than \lstinline{0xffffffffffffffff}}
 \end{itemize}}
-\end{description}
-
-Then it triggers legitimate code in simulation contexts and malicious code on the mainnet.
+\item{other contracts: by probing third party contracts, it can assess whether the blockchain mainnet is available}
+\end{itemize}
 
 \subsection{Evasion Targets}
 
@@ -56,10 +55,14 @@ Otherwise, on the mainnet, it just accepts transfers without doing anything.
 
 \subsection{Detection \& Countermeasures}
 
-\subsubsection{Bytecode}
+\subsubsection{Control Flow Graph}
 
-The bytecode can be disassembled and scanned for unusual opcodes: typically \lstinline[language=Solidity]{block.coinbase}.
+The flow of each function, especially the conditional jumps, can be parsed from the bytecode.
+And further analyzed to find the conditional jumps that depend on the global variables mentioned above.
 
-\subsubsection{fuzzing}
+\subsubsection{Differential Testing}
 
-The transactions can be tested with blank data and compared with the historic transactions.
+Another approach is to use the historic transactions as invariants.
+Replay them and fuzz the global variables with blank data, to see if it changes the behavior.
+
+The transactions can be compared at a high level thanks to their gas consumption.

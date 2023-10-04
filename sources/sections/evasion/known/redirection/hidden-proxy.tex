@@ -12,7 +12,7 @@ There are two cases:
 \item{otherwise the delegate contract adds hidden functionalities, like a backdoor}
 \end{itemize}
 
-Just like proxies, a common way to achieve this is to performs \lstinline{delegateCall} on any unknown selector, via the fallback function.
+Just like proxies, a common way to achieve this is to performs \lstinline{delegatecall} on any unknown selector, via the fallback function.
 In its simplest form, the fallback would just use another address for the logic contract.
 More sophiscated attackers will chain proxies or combine this trick with other evasion techniques like \ref{sec:variable-shadowing}.
 
@@ -24,8 +24,8 @@ This technique stacks another layer of evasion on top those mentioned in \ref{se
 
 \subsubsection{Block Explorers}
 
-Block explorers can detect standard proxy patterns and show the corresponding implementation contract.
-In this context, the shown implementation is not used and the explorers are actually misinforming their users.
+Block explorers can detect standard proxy patterns and show the corresponding logic contract.
+Here, the shown implementation is not used and the explorers are actually misinforming their users.
 
 \subsubsection{Security Tools}
 
@@ -49,8 +49,6 @@ fallback () external {
 \end{lstlisting}
 
 \subsection{Detection \& Countermeasures}
-
-This attack scheme will most likely involve masquerading code: the indicators mentioned in \ref{sec:hiding-in-plain-sight} provide a basis for the detection.
 
 \subsubsection{Overall process}
 

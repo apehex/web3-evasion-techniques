@@ -6,26 +6,32 @@ Malicious contracts simply use the EIP-1967 \cite{eip-1967} specifications to sp
 
 \subsection{Evasion Targets}
 
-\begin{description}
-\item[Etherscan]{the proxy contracts are often standard and will be validated by block explorers}
-\item[users]{most users rely on block explorers to trust contracts}
-\item[reviewers]{the source code for the logic contract may not be available: reversing and testing EVM bytecode is time consuming}
-\end{description}
+\subsubsection{Block Explorers}
+
+Even when redirecting to malicious contracts, the proxy contracts themselves are often standard.
+Block explorers will validate them and give a false sense of legitimacy.
+
+\subsubsection{Users}
+
+Most users rely on block explorers to trust contracts.
+
+\subsubsection{Reviewers}
+
+The source code for the logic contract will most likely not be available:
+reversing and testing EVM bytecode is time consuming.
 
 \subsection{Samples}
 
 This \href{}{phishing contract} has its \href{}{proxy contract verified} by Etherscan.
-
 While its logic contract is only available as \href{}{bytecode}.
 
 \subsection{Detection \& Countermeasures}
 
 Since it comes from Ethereum standards, this evasion is well-known and easy to detect.
-
 However it is largely used by legitimate contracts, it is not conclusive by itself.
 
-\begin{description}
-\item[proxy patterns]{proxies can be identified from the bytecode, function selectors, storage slots of logic addresses, use \lstinline{delegateCall}, etc}
-\item[block explorer]{the absence of verified sources is a stronger signal (to be balanced according to contract activity and age)}
-\item[bytecode]{the bytecode of the logic contract can still be further analyzed}
-\end{description}
+\begin{itemize}
+\item{proxy patterns: proxies can be identified from the bytecode, function selectors, storage slots of logic addresses, use of \lstinline{delegateCall}, etc}
+\item{block explorer: the absence of verified sources is a stronger signal (to be balanced according to contract activity and age)}
+\item{bytecode: the bytecode of the logic contract should be further analyzed}
+\end{itemize}

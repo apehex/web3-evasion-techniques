@@ -4,18 +4,14 @@
 
 The used storage slots are not explicitely listed: data can be slipped in the huge address space of the storage without leaving a public handle.
 
-\begin{description}
-\item[initialization]{the constructor code is not in the available bytecode, it can fill slots without raising any flag}
-\item[delegation]{a delegate contract could also modify the state}
-\end{description}
+\begin{itemize}
+\item{initialization: the constructor can fill slots without raising any flag}
+\item{delegation: a delegate contract could also modify the state}
+\end{itemize}
 
 \subsection{Evasion Targets}
 
-Actually, this method is effective against all the detection agents:
-
-\begin{description}
-\item[everyone]{the data is not visible in the sources nor in the bytecode}
-\end{description}
+Actually, this method is effective against all the detection agents, since the data is not visible in the sources nor in the bytecode.
 
 \subsection{Samples}
 
@@ -26,7 +22,7 @@ The constructor injected an additional owner into the storage, allowing a hidden
 
 \subsection{Detection \& Countermeasures}
 
-\subsubsection{Gas consumption}
+\subsubsection{Gas Consumption}
 
 Storing data on the blockchain is a \href{\urldocsgascost}{very costly operation}.
 If nothing else, changes to the storage can be detected through gas consumption, especially when writing to empty / unsued slots.

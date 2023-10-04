@@ -43,12 +43,10 @@ function transferOwnership(address newOwner) public virtual {
 The size of the bytecode is a low signal, but:
 
 \begin{itemize}
-\item{it is easy to detect, with certainty}
+\item{it is easy to measure, with certainty}
 \item{the codebase is always large when this technique is used}
-\item{not all contracts are bulky, some can be filtered out}
+\item{reference implementations are shared and reused, they provide a solid range}
 \end{itemize}
-
-The tricky part is to choose a relevant threshold on the size of the code.
 
 \subsubsection{Execution Traces}
 
