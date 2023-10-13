@@ -1,25 +1,35 @@
-\usepackage[utf8]{inputenc} % accents
-\usepackage[T1]{fontenc} % 8-bit encoding that has 256 glyphs
 \usepackage{fontspec} % import new fonts
-
 \usepackage[english]{babel}
-\usepackage{inconsolata}
-\usepackage{mathptmx}
 
 %----------------------------------------------------------------------------------------
 %   SPACING
 %----------------------------------------------------------------------------------------
 
-\usepackage{microtype} % tweak font spacing for aesthetics
+\usepackage{microtype}
 
 %----------------------------------------------------------------------------------------
-%   FAMILY
+%   ADD BOLD + ITALIC
 %----------------------------------------------------------------------------------------
 
-\renewcommand*\familydefault{\ttdefault}
+\newfontfamily\inconsolatafontfamily[
+    Path=template/generic/fonts/inconsolata/,
+    Ligatures=TeX,
+    Scale=MatchUppercase,
+    UprightFont = *.otf,
+    BoldFont = *-Bold.otf,
+    ItalicFont = *-Italic.otf,
+    BoldItalicFont = *-BoldItalic.otf
+]{Inconsolata-LGC}
+
+%----------------------------------------------------------------------------------------
+%   FAMILY DEFAULTS
+%----------------------------------------------------------------------------------------
+
+% \setmonofont{\inconsolatafontfamily}
+% \renewcommand*{\familydefault}{\ttdefault}
 
 %----------------------------------------------------------------------------------------
 %   HEADINGS
 %----------------------------------------------------------------------------------------
 
-\newfontfamily\headingfontfamily{inconsolata}
+\let\headingfontfamily\inconsolatafontfamily
