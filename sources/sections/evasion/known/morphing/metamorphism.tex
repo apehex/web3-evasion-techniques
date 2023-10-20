@@ -1,0 +1,84 @@
+\section{Metamorphism} \label{sec:metamorphism}
+
+\subsection{Overview}
+
+So far, we've seen how to (re)deploy contracts at random addresses.
+Given the size of the address space, there is close to no chance a contract is deployed in place of another one.
+So contracts are usually thought as immutable.
+
+However, the more recent opcode \lstinline{CREATE2} has a deterministic / known outcome.
+It can be computed offline with:
+
+\begin{lstlisting}[language=Solidity]
+address(
+    uint160(                        // downcast to match the address type.
+        uint256(                    // truncate the upper digits.
+            keccak256(              // compute the CREATE2 hash using 4 inputs.
+                abi.encodePacked(   // pack all inputs to the hash together.
+                  hex"ff",          // start with 0xff to distinguish from RLP.
+                  sender,           // address of the contract calling CREATE2.
+                  salt,             // some arbitrary salt.
+                  hash              // the Keccak hash of the code to deploy.
+                )
+            )
+        )
+    )
+);
+\end{lstlisting}
+
+This exerpt is adapted from \href{\urlcodemetamorphicapi}{0age's API}.
+This tool allows to redeploy contracts at the same address in 3 transactions (A, B and C in the diagram):
+
+\input{sections/evasion/known/morphing/figures/metamorphism/process-overview}
+
+These steps have been outlined by Michael Blau in the article following the \href{\urlarticlemetamorphismtool}{publication of his detection tool}. 
+This technique has many variants, in particular the init code in the API can be tweaked.
+
+This init code is a small creation bytecode that is deployed using \lstinline{CREATE2}.
+The same init code is used on every deployment of the metamorphic contract, which guarantees that it will be published at a fixed address.
+The init code then copies the actual implementation code from another location giving birth to a new variant of the metamorphic contract.
+
+\subsection{Evasion Targets}
+
+\subsubsection{Users}
+
+Few users are aware that contracts can change.
+Checking a project once is already demanding, it is even less likely users will double check later.
+
+\subsubsection{Reviewers}
+
+Metamorphism allows to turn a totally legitimate contract into anything.
+The first version may pass all the security checks, even though the presence of \lstinline{CREATE2} and \lstinline{SELFDESTRUCT} may raise some concern.
+
+\subsection{Samples}
+
+Metamorphism is commonly used by \href{\urladdressmevbot}{MEV bots}.
+
+0age has also deployed several demonstration contracts, even \href{\urladdressmetamorphicfactory}{on the mainnet}.
+
+\subsection{Detection \& Countermeasures}
+
+Instead of characterizing a given address, it is more efficient to detect the mutation as it happens on each of the 3 key transactions depicted in the overview \ref{sec:metamorphism}.
+
+\subsubsection{On Factory Deployment}
+
+The process can be detected as soon as the \href{\urltxmetamorphismstepone}{factory deployment}.
+The bytecode of the deployed contracts can be disassembled and scanned for signs of metamorphic code.
+
+\input{sections/evasion/known/morphing/figures/metamorphism/detection-factory}
+
+\subsubsection{On Mutant Metamorphing}
+
+The mutation is the most telling transaction, as you can see \href{\urltxmetamorphismsteptwo}{in this example}.
+
+The detection is very similar to the process described in the previous section.
+Instead of looking for the indicators in the bytecode, they can directly be viewed in the execution traces.
+
+At this stage the address of the morphing contract is known, a simple code-diff will give a definitive answer.
+
+\input{sections/evasion/known/morphing/figures/metamorphism/detection-mutant}
+
+\subsubsection{On Mutant Suicide}
+
+\href{\urltxmetamorphismstepthree}{Self-destructions} are fairly rare and can be the triggering factor of further analyses.
+They can be directly detected using traces.

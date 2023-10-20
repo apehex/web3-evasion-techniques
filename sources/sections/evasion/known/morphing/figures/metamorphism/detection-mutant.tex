@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+
+\node (traces) [io] {TX Traces};
+
+\node (extract) [block, below=1cm of traces, inner sep=4mm] {Parse\\CREATE2 Traces};
+\node (data) [io, below=1cm of extract] {Addresses, Inputs};
+\node (index) [block, right=4cm of data, inner sep=4mm] {Index};
+
+\node (codediff) [block, below=1cm of data, inner sep=4mm] {Code diff};
+\node (diffinit) [decision, below=1cm of codediff] {Code $\neq$ Init?};
+
+\node (scrape) [block, below=1cm of diffinit, inner sep=4mm] {Scrape History};
+\node (changed) [decision, below=1cm of scrape] {Code Changed?};
+
+\node (negative) [io, right=3cm of diffinit] {0};
+\node (unknown) [io, right=2.8cm of changed] {0.5};
+\node (positive) [io, below=2cm of changed] {1};
+
+\node (c1) [container, fit=(extract) (changed), inner xsep=12mm, inner ysep=8mm, xshift=4mm, yshift=-2mm] {};
+\node (t1) [label, above=2mm of c1, xshift=2cm] {Mutant?};
+
+\node (c2) [container, fit=(negative)] {};
+\node (t2) [label, above=2mm of c2] {Negative};
+
+\node (c3) [container, fit=(unknown)] {};
+\node (t3) [label, above=2mm of c3] {Unkown};
+
+\node (c4) [container, fit=(positive) (positive)] {};
+\node (t4) [label, below=2mm of c4] {Positive};
+
+\draw [arrow] (traces.south) -- (extract.north);
+\draw [arrow] (extract.south) -- (data.north);
+\draw [arrow] (data.south) -- (codediff.north);
+\draw [arrow] (data.east) -- (index.west);
+\draw [arrow] (codediff.south) -- (diffinit.north);
+\draw [arrow] (diffinit.south) -- (scrape.north);
+\draw [arrow] (scrape.south) -- (changed.north);
+\draw [arrow] (diffinit.east) -- node[label, near start, above] {No} (negative.west);
+\draw [arrow] (changed.south) -- node[label, near start, right] {Yes} (positive.north);
+\draw [arrow] (changed.east) -- node[label, near start, above] {No} (unknown.west);
+
+\end{tikzpicture}

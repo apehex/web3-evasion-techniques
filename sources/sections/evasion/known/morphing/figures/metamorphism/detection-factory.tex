@@ -1,0 +1,40 @@
+\begin{tikzpicture}
+
+\node (traces) [io] {TX Traces};
+
+\node (extract) [block, below=1cm of traces, inner sep=4mm] {Parse\\Creation Traces};
+\node (data) [io, below=1cm of extract] {Addresses, Bytecodes};
+\node (index) [block, right=4cm of data, inner sep=4mm] {Index};
+
+\node (disassemble) [block, below=1cm of data, inner sep=4mm] {Disassemble};
+
+\node (opcode) [decision, below=1cm of disassemble] {CREATE2?};
+\node (init) [decision, below=1cm of opcode] {Init Code?};
+
+\node (negative) [io, right=3cm of opcode] {0};
+\node (unknown) [io, right=3cm of init] {0.5};
+\node (positive) [io, below=2cm of init] {0.8};
+
+\node (c1) [container, fit=(extract) (init), inner xsep=12mm, inner ysep=8mm, xshift=4mm, yshift=-2mm] {};
+\node (t1) [label, above=2mm of c1, xshift=2cm] {Factory?};
+
+\node (c2) [container, fit=(negative)] {};
+\node (t2) [label, above=2mm of c2] {Negative};
+
+\node (c3) [container, fit=(unknown)] {};
+\node (t3) [label, above=2mm of c3] {Unkown};
+
+\node (c4) [container, fit=(positive)] {};
+\node (t4) [label, below=2mm of c4] {Positive};
+
+\draw [arrow] (traces.south) -- (extract.north);
+\draw [arrow] (extract.south) -- (data.north);
+\draw [arrow] (data.south) -- (disassemble.north);
+\draw [arrow] (data.east) -- (index.west);
+\draw [arrow] (disassemble.south) -- (opcode.north);
+\draw [arrow] (opcode.south) -- (init.north);
+\draw [arrow] (opcode.east) -- node[label, near start, above] {No} (negative.west);
+\draw [arrow] (init.south) -- node[label, near start, right] {Yes} (positive.north);
+\draw [arrow] (init.east) -- node[label, near start, above] {No} (unknown.west);
+
+\end{tikzpicture}

@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+
+\node (initcode) [io] {Init\\Code};
+\node (implcode) [io, right=2cm of initcode] {Implementation\\Code};
+\node (data) [io, right=2cm of implcode] {Data\\(Address)};
+
+\node (factory) [block, below=2cm of implcode, inner sep=4mm] {Contract\\Factory};
+\node (implementation) [block, below=6cm of initcode, inner sep=4mm] {Implementation\\Contract};
+\node (mutant) [block, below=6cm of data, inner sep=4mm] {Metamorphic\\Contract};
+
+\draw [arrow] ([xshift=0mm]initcode.270) -- +(0,-1cm) -- (factory.145);
+
+\draw [arrow] ([xshift=0mm]implcode.270) -- ([xshift=0mm]factory.90);
+\draw [arrow] ([xshift=0mm]factory.180)  -| node[label, near start, above] {B.2 create} (implementation.90);
+\draw [arrow] ([xshift=-4mm]factory.270) |- node[label, near start, left] {B.3 store\\address} ([yshift=4mm]implementation.0);
+\draw [arrow] ([xshift=0mm]factory.0)  -| node[label, near start, above] {B.4 create2} ([xshift=-4mm]mutant.90);
+\draw [arrow] ([yshift=4mm]mutant.180) -| node[label, near end, right] {B.5 query\\address} ([xshift=4mm]factory.270);
+\draw [arrow] ([yshift=-4mm]mutant.180) -- node[label, midway, below] {B.6 copy code} ([yshift=-4mm]implementation.0);
+
+\draw [arrow] ([xshift=4mm]data.270) -- ([xshift=4mm]mutant.90);
+\draw [arrow] ([xshift=0mm]mutant.270) -- node[label, midway, right] {C.2 selfdestruct} +(0,-2cm);
+
+\node[label, anchor=east] at ([yshift=-12mm]initcode) {A.1 deploy};
+\node[label, anchor=west] at ([yshift=-12mm]implcode) {B.1 send};
+\node[label, anchor=west] at ([xshift=4mm, yshift=-12mm]data) {C.1 send};
+
+\end{tikzpicture}
