@@ -1,0 +1,70 @@
+\section{Anti-Reversing} \label{sec:anti-reversing}
+
+\subsection{Overview}
+
+Smart contracts hold and process key information they may want to keep private:
+
+\begin{description}
+\item[selectors]{as a whole, the interface reveals the parents of a given contract and gives an idea of its use}
+\item[addresses]{addresses can designate the target of a hack, or recipients of a coin mixing operation for example}
+\item[calldata]{it is a rich source of information that be used to understand the behavior of a contract}
+\end{description}
+
+Anti-reversing techniques aim at concealing or distorting these informations.
+And they can go further by obfuscating the contract logic and generally interfering with RE tooling.
+
+The application of such anti-reversing methods serves multiple purposes.
+It can protect secret data, make it harder to find and / or exploit vulnerabilities, or hide the contract's intended functionality.
+
+However, obfuscation is rarely used with good intentions: it is a red flag for security researchers.
+Even though these methods hinder analysis, they may in turn motivate it!
+
+\subsection{Evasion Targets}
+
+\subsubsection{Tools}
+
+Static analysis often employ common and imperfect methods that are both known and can be gamed.
+
+\subsubsection{Reviewers}
+
+Malicious agents can try can and delay / dissuade security researchers by obfuscating their smart contracts.
+
+\subsubsection{MEV Researchers}
+
+MEV researchers are very protective of their secret sauce: to prevent their competition from gaining insights, the bots are sometimes obfuscated.
+
+\subsection{Samples}
+
+\subsubsection{Scrambling Constants}
+
+A basic technique to extract data from a contract is to disassemble it and look for \lstinline{PUSH}.
+\lstinline{PUSH4} for selectors, \lstinline{PUSH20} for addresses, etc.
+
+The MEV searcher DeGatchi mentions a few tricks \href{\urlarticleobfuscationinterface}{in his serie on obfuscation}.
+
+\begin{itemize}
+\item{several values can be packed into larger types, for example selectors into a \lstinline{bytes32}}
+\item{data can be split in several parts and later reconstructed}
+\item{real values can be computed from shifted / offset / arithmetically modified values, which are the only ones directly visible}
+\end{itemize}
+
+For example an address could be hidden in a bytes32:
+
+\begin{lstlisting}
+PUSH32 0x699694baab565c1557ace8cade5a7c71deadbeef00
+PUSH1 0x08 
+SHR
+\end{lstlisting}
+
+\subsubsection{Selector Obfuscation}
+
+The naïve parsing of the contract of \href{\urladdressmevbot}{this MEV bot} will only yield \lstinline{6c0ffcda} and \lstinline{cabcfc90}.
+
+But the selector \lstinline{0xf5c58cda} called to \href{\urltxmevhack}{front-run the hack on Wise Lending} does not appear in clear.
+Actually it's totally ignored, the fallback is called and the value \lstinline{0xf5c58cda} is not used.
+
+\subsubsection{Keeping Key Data Out Of The Bytecode}
+
+The exploit contract of DappSocial didn't have the address of its target in the bytecode.
+
+Even if someone identified the contract as malicious, it was very hard to guess the target in the 108s before the \href{\urltxdappsocialexploit}{attack transaction}.
