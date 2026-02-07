@@ -1,12 +1,12 @@
-# Evading Detection In Web3
+# Evading Detection On The Blockchain
 
 Smart contracts are core tools for scammers and protocol attackers to steal digital assets.
 
 As there is now more scrutiny by both users and security tools, scammers are answering with deception.
 
-There is a long history of malware detection and evasion growing side-by-side in the binary and web2 spaces.
+There is a long history of malware detection and evasion growing side-by-side in the binary and web spaces.
 
-It is very likely web3 will follow the same path: this repository will detail the latest developments.
+It is very likely the blockchain will follow the same path: this repository will detail the latest developments.
 
 ## Report
 
